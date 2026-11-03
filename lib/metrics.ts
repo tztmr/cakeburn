@@ -87,3 +87,19 @@ export function evaluateRule(rule: AlertRule, priceUSDT: number | null, period: 
     (rule.metric === "price-below" ? value <= rule.threshold : value >= rule.threshold);
   return { triggered, value, key: rule.metric === "burn-above" ? String(period?.date ?? "") : "price" };
 }
+
+export function emptyMarket(): Market {
+  return { priceUSD: null, priceUSDT: null, changeUSD: null, changeUSDT: null, highUSDT: null, lowUSDT: null,
+    volumeUSDT: null, marketCap: null, tokenVolume: null, circulating: null, totalSupply: null, maxSupply: null,
+    geckoAsOf: null, binanceAsOf: null };
+}
+export function supplementBinance(raw: unknown, current: Market): Market {
+  const ticker = object(raw);
+  const price = numeric(ticker.lastPrice); const time = numeric(ticker.closeTime);
+  if (ticker.symbol !== "CAKEUSDT" || price === null || price <= 0 || time === null || time <= 0 || !Number.isFinite(new Date(time).getTime())) throw new Error("币安报价无效");
+  return { ...current, priceUSDT: price, changeUSDT: numeric(ticker.priceChangePercent), highUSDT: numeric(ticker.highPrice),
+    lowUSDT: numeric(ticker.lowPrice), volumeUSDT: numeric(ticker.quoteVolume), binanceAsOf: new Date(time).toISOString() };
+}
+export function completeMarket(data: Market): boolean {
+  return data.priceUSD !== null && data.priceUSDT !== null && data.circulating !== null && data.maxSupply !== null && isFresh(data.binanceAsOf);
+}

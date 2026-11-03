@@ -41,6 +41,7 @@ export type Protocol = {
   chains: { name: string; value: number }[];
   versions: { name: string; value: number }[];
   coverage: { tvl: boolean; volume: boolean; fees: boolean; revenue: boolean };
+  details?: { chainsAsOf?: string | null; tvlHistoryAsOf?: string | null; versionsAsOf?: string | null; cachedParts?: string[] };
 };
 
 export type BurnPeriod = {

@@ -593,3 +593,5 @@ footer a { color: #7aa3bd; }
   .metric-title { text-wrap: balance; }
   .metric .en-label { display: none; }
 }
+
+.quote-asof{display:block;font-size:11px;color:var(--muted);line-height:1.65;margin-top:7px;font-weight:400}
