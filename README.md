@@ -60,3 +60,11 @@ npm run build
 - `tests/metrics.test.mjs`：真实官方数据对账及关键边界检查。
 
 站点默认仅所有者可访问，发布身份保存在 `.openai/hosting.json`。
+
+## 品牌素材
+
+站点图标及导航 Logo 使用 PancakeSwap 官网的 `logo.png` / `favicon.ico`，首页 CAKE 兔子形象使用 CoinGecko 的 CAKE 代币图标。素材原样保存于 `public/`，未重绘或修改标识。页面为独立的数据监控看板。
+
+- https://pancakeswap.finance/logo.png
+- https://pancakeswap.finance/favicon.ico
+- https://coin-images.coingecko.com/coins/images/12632/large/pancakeswap-cake-logo_%281%29.png?1696512440
