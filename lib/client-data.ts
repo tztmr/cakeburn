@@ -1,10 +1,11 @@
-import type { Market, Protocol, Section, Sections, Source } from "./monitor-types.ts";
+import type { Governance, Market, Protocol, Section, Sections, Source } from "./monitor-types.ts";
 import { fetchJSON } from "./http.ts";
 import { completeMarket, emptyMarket } from "./metrics.ts";
 import { marketProvider, protocolProvider, pricesProvider, protocolComplete } from "./providers.ts";
+import { governanceProvider } from "./governance.ts";
 
-const names = { market: "CoinGecko · Binance", protocol: "DefiLlama", burns: "PancakeSwap", chain: "BNB Chain", prices: "Binance CAKE/USDT" };
-const urls = { market: "https://www.coingecko.com/en/coins/pancakeswap", protocol: "https://defillama.com/protocol/pancakeswap", burns: "https://pancakeswap.finance/burn-dashboard", chain: "https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82", prices: "https://www.binance.com/en/trade/CAKE_USDT" };
+const names = { market: "CoinGecko · Binance", protocol: "DefiLlama", burns: "PancakeSwap", chain: "BNB Chain", prices: "Binance CAKE/USDT", governance: "Snapshot · cakevote.eth" };
+const urls = { market: "https://www.coingecko.com/en/coins/pancakeswap", protocol: "https://defillama.com/protocol/pancakeswap", burns: "https://pancakeswap.finance/burn-dashboard", chain: "https://bscscan.com/token/0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82", prices: "https://www.binance.com/en/trade/CAKE_USDT", governance: "https://snapshot.box/#/s:cakevote.eth" };
 
 // A partial refresh must not erase fields that were already obtained successfully.
 export function preserveData<K extends Section>(key: K, next: Sections[K] | null, previous: Sections[K] | null): Sections[K] | null {
@@ -37,6 +38,14 @@ export function preserveData<K extends Section>(key: K, next: Sections[K] | null
     return data as Sections[K];
   }
   if (key === "prices" && !(next as Sections["prices"]).points.length) return previous;
+  if (key === "governance") {
+    const data = next as Governance; const old = previous as Governance;
+    if (!data.proposals.length) return previous;
+    const byId = new Map(old.proposals.map((proposal) => [proposal.id, proposal]));
+    // A closed status from the newer response must replace an older "active" copy.
+    for (const proposal of data.proposals) byId.set(proposal.id, proposal);
+    return { ...data, proposals: [...byId.values()].sort((a, b) => b.created - a.created).slice(0, 60) } as Sections[K];
+  }
   return next;
 }
 
@@ -57,12 +66,15 @@ export async function loadClientSection<K extends Section>(key: K, previous: Sou
   }
   const needsDirect = key === "market" ? !result.data || !completeMarket(result.data as Market) || result.status !== "live"
     : key === "protocol" ? !result.data || !protocolComplete(result.data as Protocol) || result.status !== "live"
-    : key === "prices" ? !(result.data as Sections["prices"] | null)?.points.length || result.status !== "live" : false;
+    : key === "prices" ? !(result.data as Sections["prices"] | null)?.points.length || result.status !== "live"
+    : key === "governance" ? !(result.data as Governance | null)?.proposals.length || result.status !== "live" : false;
   if (needsDirect && !signal.aborted) {
     const read = (url: string, timeoutMs?: number) => fetchJSON(url, { signal, timeoutMs, headers: { Accept: "application/json" } });
+    const post = (url: string, body: string, timeoutMs?: number) => fetchJSON(url, { signal, timeoutMs, method: "POST", body, headers: { Accept: "application/json", "Content-Type": "application/json" } });
     try {
       const direct = key === "market" ? await marketProvider(read, (result.data as Market | null) ?? emptyMarket())
         : key === "protocol" ? await protocolProvider(read, (result.data as Protocol | null) ?? undefined)
+        : key === "governance" ? await governanceProvider(post)
         : await pricesProvider(read);
       result = { ...result, data: direct.data as Sections[K], status: direct.partial ? "partial" : "live",
         fetchedAt: new Date().toISOString(), asOf: direct.asOf, note: direct.note };

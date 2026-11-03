@@ -71,7 +71,7 @@ export type Chain = {
   outstanding: number;
 };
 export type Prices = { points: Point[]; currency: "USDT" };
-export type Sections = { market: Market; protocol: Protocol; burns: Burns; chain: Chain; prices: Prices };
+export type Sections = { market: Market; protocol: Protocol; burns: Burns; chain: Chain; prices: Prices; governance: Governance };
 export type Section = keyof Sections;
 export type Dashboard = { [K in Section]: Source<Sections[K]> | null };
 
@@ -82,3 +82,27 @@ export type AlertRule = {
   enabled: boolean;
 };
 export type AlertEvent = { id: string; ruleId: string; time: string; message: string };
+
+export type GovernanceState = "active" | "pending" | "closed";
+export type GovernanceProposal = {
+  id: string;
+  title: string;
+  state: GovernanceState;
+  created: number;
+  start: number;
+  end: number;
+  author: string;
+  choices: string[];
+  scores: number[];
+  scoresTotal: number;
+  votes: number;
+  quorum: number | null;
+  snapshot: number | null;
+  link: string;
+};
+export type Governance = {
+  space: { id: string; name: string; proposals: number; followers: number };
+  voting: { delay: number | null; period: number | null; quorum: number | null };
+  strategies: string[];
+  proposals: GovernanceProposal[];
+};

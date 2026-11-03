@@ -1,9 +1,11 @@
-import type { Chain, Market, Protocol, Prices, Section, Sections, Source } from "./monitor-types";
-import { normalizeBurnStats, outstandingSupply, tokenBalance } from "./metrics";
-import { fetchJSON, bounded } from "./http";
-import { marketProvider, protocolProvider, pricesProvider } from "./providers";
-import snapshots from "../data/service-snapshot.json";
-import archive from "../data/burn-snapshot.json";
+import type { Chain, Governance, Market, Protocol, Prices, Section, Sections, Source } from "./monitor-types.ts";
+import { normalizeBurnStats, outstandingSupply, tokenBalance } from "./metrics.ts";
+import { fetchJSON, bounded } from "./http.ts";
+import { marketProvider, protocolProvider, pricesProvider } from "./providers.ts";
+import { governanceProvider, GOVERNANCE_SOURCE, GOVERNANCE_PAGE } from "./governance.ts";
+import snapshots from "../data/service-snapshot.json" with { type: "json" };
+import archive from "../data/burn-snapshot.json" with { type: "json" };
+import governanceArchive from "../data/governance-snapshot.json" with { type: "json" };
 
 export const CAKE = "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82";
 export const DEAD = "0x000000000000000000000000000000000000dead";
@@ -54,6 +56,15 @@ async function readChain(url: string): Promise<Chain> {
   ]);
   return { block, blockTime: new Date(Number(tokenBalance(record(header).timestamp)) * 1000).toISOString(), ...outstandingSupply(tokenBalance(minted), tokenBalance(dead)) };
 }
+async function loadGovernance(): Promise<Loaded<"governance">> {
+  try {
+    const result = await governanceProvider((url, body, timeout) => fetchBody(url, { method: "POST", headers: { "Content-Type": "application/json" }, body }, timeout));
+    return { data: result.data as Governance, asOf: result.asOf };
+  } catch {
+    return { data: governanceArchive.data as Governance, asOf: governanceArchive.collectedAt, snapshotAt: governanceArchive.collectedAt,
+      note: "Snapshot 治理接口暂不可用，展示已标明日期的历史快照；投票状态与结果可能已变化。" };
+  }
+}
 async function loadChain(): Promise<Loaded<"chain">> {
   const data = await Promise.any([readChain("https://bsc-dataseed.bnbchain.org"), readChain("https://bsc-rpc.publicnode.com")]);
   return { data, asOf: data.blockTime };
@@ -64,6 +75,7 @@ const config = {
   burns: { ttl: 900_000, source: "PancakeSwap 官方焚毁仪表板", sourceUrl: "https://pancakeswap.finance/burn-dashboard", load: loadBurns },
   chain: { ttl: 300_000, source: "BNB Chain 公共节点", sourceUrl: `https://bscscan.com/token/${CAKE}`, load: loadChain },
   prices: { ttl: 1_800_000, source: "Binance CAKE/USDT", sourceUrl: "https://www.binance.com/en/trade/CAKE_USDT", load: loadPrices },
+  governance: { ttl: 900_000, source: GOVERNANCE_SOURCE, sourceUrl: GOVERNANCE_PAGE, load: loadGovernance },
 };
 const memory = new Map<Section, Source<unknown>>();
 function seed<K extends Section>(key: K): Source<Sections[K]> | undefined {
@@ -80,7 +92,7 @@ function edgeCache(): Cache | undefined {
 }
 async function resolveSection<K extends Section>(key: K): Promise<Source<Sections[K]>> {
   const settings = config[key];
-  const cacheKey = new Request(`https://cakelisten-cache.invalid/v4/${key}`);
+  const cacheKey = new Request(`https://cakelisten-cache.invalid/v5/${key}`);
   let previous = memory.get(key) as Source<Sections[K]> | undefined;
   if (!previous) {
     try {

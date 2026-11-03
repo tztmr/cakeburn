@@ -1,0 +1,1360 @@
+{
+  "collectedAt": "2026-11-03T06:39:58.084Z",
+  "sourceUrl": "https://hub.snapshot.org/graphql",
+  "data": {
+    "space": {
+      "id": "cakevote.eth",
+      "name": "PancakeSwap",
+      "proposals": 3741,
+      "followers": 111383
+    },
+    "voting": {
+      "delay": 900,
+      "period": 259200,
+      "quorum": 1
+    },
+    "strategies": [
+      "erc20-balance-of"
+    ],
+    "proposals": [
+      {
+        "id": "0x177e9b0ea5955a01ea832dd36cf3ad7bcbbb24c14d6e7e74656b736fc57ce251",
+        "title": "The Flip: Liquidity Should Get Paid More, The Kitchen proposes raising the LP fee share to 88%",
+        "state": "closed",
+        "created": 1792569142000,
+        "start": 1792570042000,
+        "end": 1792829242000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "For",
+          "Against"
+        ],
+        "scores": [
+          3037343.9598223385,
+          1245165.0266173943
+        ],
+        "scoresTotal": 4282508.986439733,
+        "votes": 43,
+        "quorum": 1,
+        "snapshot": 128901266,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x177e9b0ea5955a01ea832dd36cf3ad7bcbbb24c14d6e7e74656b736fc57ce251"
+      },
+      {
+        "id": "0x7a55c37b49aba6035e24a27dbabb95c83388f7338520e8b78cc07f66702c9451",
+        "title": "Proposal to Redirect Side Product Fee Streams for Treasury Optimization",
+        "state": "closed",
+        "created": 1781764048000,
+        "start": 1781764948000,
+        "end": 1782024148000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "For, please proceed.",
+          "Against, do not proceed."
+        ],
+        "scores": [
+          4015753.00864204,
+          17521.328693499287
+        ],
+        "scoresTotal": 4033274.3373355395,
+        "votes": 8,
+        "quorum": 1,
+        "snapshot": 104902029,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x7a55c37b49aba6035e24a27dbabb95c83388f7338520e8b78cc07f66702c9451"
+      },
+      {
+        "id": "0xe9f608ed2d454f1199c7d31044962d4011879f6a4515e0e925b164dcdc60f5ef",
+        "title": "test2",
+        "state": "closed",
+        "created": 1781598022000,
+        "start": 1781598922000,
+        "end": 1781858122000,
+        "author": "0xD09971D8ed6C6a5e57581e90d593ee5B94e348D4",
+        "choices": [
+          "For",
+          "Against"
+        ],
+        "scores": [
+          1.004129676805497,
+          0
+        ],
+        "scoresTotal": 1.004129676805497,
+        "votes": 2,
+        "quorum": 1,
+        "snapshot": 104533201,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xe9f608ed2d454f1199c7d31044962d4011879f6a4515e0e925b164dcdc60f5ef"
+      },
+      {
+        "id": "0xfb964fc60b36da41232f11aa62321d300206c8ffbe7d5a8ca35cb3817eddb3db",
+        "title": "Test",
+        "state": "closed",
+        "created": 1781595328000,
+        "start": 1781596228000,
+        "end": 1781855428000,
+        "author": "0xD09971D8ed6C6a5e57581e90d593ee5B94e348D4",
+        "choices": [
+          "For",
+          "Against",
+          "Abstain"
+        ],
+        "scores": [
+          51.31994452319255,
+          0,
+          0
+        ],
+        "scoresTotal": 51.31994452319255,
+        "votes": 3,
+        "quorum": 1,
+        "snapshot": 104527217,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xfb964fc60b36da41232f11aa62321d300206c8ffbe7d5a8ca35cb3817eddb3db"
+      },
+      {
+        "id": "0x05c6b47bcfb5133621c3c1082433713a6cc773255b42fed7f10721fc1d53add3",
+        "title": "Proposal to Retain Stablecoin Fees From Stablecoin Pools",
+        "state": "closed",
+        "created": 1772029533000,
+        "start": 1772030433000,
+        "end": 1772289633000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "For, please proceed.",
+          "Against, do not proceed."
+        ],
+        "scores": [
+          316593.76830094575,
+          576.9979003102628
+        ],
+        "scoresTotal": 317170.7662012561,
+        "votes": 71,
+        "quorum": 1,
+        "snapshot": 83297092,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x05c6b47bcfb5133621c3c1082433713a6cc773255b42fed7f10721fc1d53add3"
+      },
+      {
+        "id": "0xc988547f7b6c435764c840623685b0c2d13ebcc91d1672d39c51b6d14207f9a5",
+        "title": "Proposal to Reduce CAKE Token Max Supply",
+        "state": "closed",
+        "created": 1768545287000,
+        "start": 1768546187000,
+        "end": 1768805387000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, we want to lower CAKE’s max supply",
+          "❌ No, we don't want to lower CAKE’s max supply"
+        ],
+        "scores": [
+          1667438.2332815928,
+          0.1151070304405222
+        ],
+        "scoresTotal": 1667438.348388623,
+        "votes": 190,
+        "quorum": 1,
+        "snapshot": 75557093,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xc988547f7b6c435764c840623685b0c2d13ebcc91d1672d39c51b6d14207f9a5"
+      },
+      {
+        "id": "0xbf5d6a284ec28133e675d348215b48a40884a04939fe9c7ebffb868a4d0530da",
+        "title": "test2",
+        "state": "closed",
+        "created": 1768373756000,
+        "start": 1768374656000,
+        "end": 1768633856000,
+        "author": "0xD09971D8ed6C6a5e57581e90d593ee5B94e348D4",
+        "choices": [
+          "1",
+          "2"
+        ],
+        "scores": [
+          1.7293762546416684,
+          0.02373197894042372
+        ],
+        "scoresTotal": 1.7531082335820922,
+        "votes": 7,
+        "quorum": 1,
+        "snapshot": 75176038,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xbf5d6a284ec28133e675d348215b48a40884a04939fe9c7ebffb868a4d0530da"
+      },
+      {
+        "id": "0xb5e6789b11023a3716c628a60807cf6e48771946292de8d980c5c0d350ed7481",
+        "title": "Test",
+        "state": "closed",
+        "created": 1768371980000,
+        "start": 1768372880000,
+        "end": 1768632080000,
+        "author": "0xD09971D8ed6C6a5e57581e90d593ee5B94e348D4",
+        "choices": [
+          "For",
+          "Against"
+        ],
+        "scores": [
+          2.713630308922796,
+          0.03947792101410219
+        ],
+        "scoresTotal": 2.753108229936898,
+        "votes": 7,
+        "quorum": 1,
+        "snapshot": 75172091,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xb5e6789b11023a3716c628a60807cf6e48771946292de8d980c5c0d350ed7481"
+      },
+      {
+        "id": "0xedd107739d857cced16fd57b790416992c46b1c5df65ddeaa6c70c6d28ef91d1",
+        "title": "🥞 Proposal: Community Syrup Pools 😍",
+        "state": "closed",
+        "created": 1756891462000,
+        "start": 1756892362000,
+        "end": 1757151562000,
+        "author": "0xa4F324253E60cb82E425c2d4dD035018B7202E37",
+        "choices": [
+          "Yes! 🥞",
+          "No! 🙅‍♂️"
+        ],
+        "scores": [
+          121.97693433014666,
+          2.130245401388642
+        ],
+        "scoresTotal": 124.10717973153531,
+        "votes": 19,
+        "quorum": 1,
+        "snapshot": 59857304,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xedd107739d857cced16fd57b790416992c46b1c5df65ddeaa6c70c6d28ef91d1"
+      },
+      {
+        "id": "0x094c8475bbe66bd271eb7da9756b88fae8ea16b98a6331326ae6dc8a54297ed1",
+        "title": "Dynamic Decentralized Exchange",
+        "state": "closed",
+        "created": 1747853060000,
+        "start": 1747853960000,
+        "end": 1748113160000,
+        "author": "0x8ED1376aC0C525fd7187759438F8fde93A0b1bf0",
+        "choices": [
+          "Pancakeswap should implement dynamic continuous trading like Hyperliquid.",
+          "Pancakeswap should only have swap feature in terms of DEFI trading."
+        ],
+        "scores": [
+          10211.49072965582,
+          0
+        ],
+        "scoresTotal": 10211.490729655821,
+        "votes": 22,
+        "quorum": 1,
+        "snapshot": 50073090,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x094c8475bbe66bd271eb7da9756b88fae8ea16b98a6331326ae6dc8a54297ed1"
+      },
+      {
+        "id": "0x829ae3f6802fdb16dcf8c67800c315ee16f1f0c38332b90f3605e97ff9b841f8",
+        "title": "test for cake balance",
+        "state": "closed",
+        "created": 1747298194000,
+        "start": 1747299094000,
+        "end": 1747558294000,
+        "author": "0x3148Ba523363d073dbffBB62b5C18C77F7A705e9",
+        "choices": [
+          "test option1",
+          "test option2",
+          "test option3"
+        ],
+        "scores": [
+          4684.685768861912,
+          12.344844386702851,
+          52.318449197224496
+        ],
+        "scoresTotal": 4749.349062445839,
+        "votes": 29,
+        "quorum": 1,
+        "snapshot": 49703209,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x829ae3f6802fdb16dcf8c67800c315ee16f1f0c38332b90f3605e97ff9b841f8"
+      },
+      {
+        "id": "0x79ef496c9737e48d9677a6e291ff2a549dee6729c9996398e453af8ecbf0ceb3",
+        "title": "CAKE Tokenomics Proposal 3.0: True Ownership, Simplified Governance and Sustainable Growth",
+        "state": "closed",
+        "created": 1744710781000,
+        "start": 1744711681000,
+        "end": 1744970881000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, I support this proposal f",
+          "❌ No, I do not support this prop"
+        ],
+        "scores": [
+          21560077.3668683,
+          242448.34955100197
+        ],
+        "scoresTotal": 21802525.716419302,
+        "votes": 300,
+        "quorum": 1,
+        "snapshot": 48376310,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x79ef496c9737e48d9677a6e291ff2a549dee6729c9996398e453af8ecbf0ceb3"
+      },
+      {
+        "id": "0xac9d5b9c35ef24f8239f0428ac4bdfcea8c4eb5a2742881dc68654d26860801c",
+        "title": "Make iCake transferred or rented",
+        "state": "closed",
+        "created": 1737126236000,
+        "start": 1737127136000,
+        "end": 1737386336000,
+        "author": "0xbDB7819a671B83E04800A98e00294a67d7d2eC7A",
+        "choices": [
+          "Good",
+          "Bad"
+        ],
+        "scores": [
+          1458.5875000763629,
+          0
+        ],
+        "scoresTotal": 1458.5875000763629,
+        "votes": 20,
+        "quorum": 1,
+        "snapshot": 45848313,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xac9d5b9c35ef24f8239f0428ac4bdfcea8c4eb5a2742881dc68654d26860801c"
+      },
+      {
+        "id": "0x357bef9a52981c885ccbe108e908043f527f2994b294ece7a3617b0656de0e8e",
+        "title": "VeCake management & Max supply adjustments",
+        "state": "closed",
+        "created": 1735915556000,
+        "start": 1735914600000,
+        "end": 1736173800000,
+        "author": "0x661987F2eF1E8A43f36f0D6acd653aaf2770bF2b",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "scores": [
+          155300.38934362883,
+          1830373.6931746232
+        ],
+        "scoresTotal": 1985674.0825182518,
+        "votes": 36,
+        "quorum": 1,
+        "snapshot": 45444766,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x357bef9a52981c885ccbe108e908043f527f2994b294ece7a3617b0656de0e8e"
+      },
+      {
+        "id": "0x3fb72659b13423d9b477a08ccea5528cc5490d5b3114108371eba2ae367ba04f",
+        "title": "Proposal to Relabel Multichain Warchest as Ecosystem Growth",
+        "state": "closed",
+        "created": 1731404178000,
+        "start": 1731405078000,
+        "end": 1731664278000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, we want to future-proof P",
+          "❌ No, we don’t want to future-pr"
+        ],
+        "scores": [
+          13178686.36140116,
+          1880680.9029770491
+        ],
+        "scoresTotal": 15059367.264378209,
+        "votes": 182,
+        "quorum": 1,
+        "snapshot": 43941146,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x3fb72659b13423d9b477a08ccea5528cc5490d5b3114108371eba2ae367ba04f"
+      },
+      {
+        "id": "0xaffca49c859c6012ad7c969fe7afd1caa8d3386636ab8ccb12a5b5e5ae922e6a",
+        "title": "Proposal to Redirect Emissions for Ecosystem Growth",
+        "state": "closed",
+        "created": 1727779291000,
+        "start": 1727780400000,
+        "end": 1728385200000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, we want to utilize emissions more efficiently and redirect CAKE!",
+          "❌ No, we don’t want to utilize emissions more efficiently and redirect CAKE!"
+        ],
+        "scores": [
+          2074227.4034400797,
+          13381786.823628042
+        ],
+        "scoresTotal": 15456014.227068119,
+        "votes": 176,
+        "quorum": 0,
+        "snapshot": 42732336,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xaffca49c859c6012ad7c969fe7afd1caa8d3386636ab8ccb12a5b5e5ae922e6a"
+      },
+      {
+        "id": "0x2793559438e42b3838e4734c62a10178c1889223f235dd1cdb2140f5940da283",
+        "title": "Create a Great Marketplace for voting Incentives",
+        "state": "closed",
+        "created": 1721397220000,
+        "start": 1721419200000,
+        "end": 1724076000000,
+        "author": "0x0711de882846C873b7125FacD54631358AD1699F",
+        "choices": [
+          "Yes, Create an Incentives Marketplace",
+          "No, it is not worth"
+        ],
+        "scores": [
+          6851.766206749819,
+          1385779.4968246107
+        ],
+        "scoresTotal": 1392631.2630313605,
+        "votes": 71,
+        "quorum": 0,
+        "snapshot": 40610715,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x2793559438e42b3838e4734c62a10178c1889223f235dd1cdb2140f5940da283"
+      },
+      {
+        "id": "0x910b732e87993804b27bb93f9635d424f36fe760d0431865e02a7ccb96513bba",
+        "title": "(UPDATED) Proposal for Lista DAO ($LISTA) IFO to be Hosted on PancakeSwap",
+        "state": "closed",
+        "created": 1716811468000,
+        "start": 1716897600000,
+        "end": 1717156800000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, let’s host the $LISTA IFO!",
+          "❌ No, do not host the $LISTA IFO!"
+        ],
+        "scores": [
+          12796962.68407796,
+          805.4195221006735
+        ],
+        "scoresTotal": 12797768.103600059,
+        "votes": 299,
+        "quorum": 0,
+        "snapshot": 39087868,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x910b732e87993804b27bb93f9635d424f36fe760d0431865e02a7ccb96513bba"
+      },
+      {
+        "id": "0xd58db3d317a410ef53fb850a834c9316644dac49e65999f9eee76537ec53e32b",
+        "title": "Proposal for Lista DAO ($LISTA) IFO to be Hosted on PancakeSwap",
+        "state": "closed",
+        "created": 1716810365000,
+        "start": 1716897600000,
+        "end": 1717156800000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, let’s host the $LISTA IFO!",
+          "❌ No, do not host the $LISTA IFO!"
+        ],
+        "scores": [
+          85928.49994595561,
+          325.51001243547734
+        ],
+        "scoresTotal": 86254.00995839109,
+        "votes": 171,
+        "quorum": 0,
+        "snapshot": 39087389,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xd58db3d317a410ef53fb850a834c9316644dac49e65999f9eee76537ec53e32b"
+      },
+      {
+        "id": "0x41feef37054b6c090a2629d6eb2ed39f426f169b725cb565903e6b3ba1771bcc",
+        "title": "Proposal to Direct CAKE Emissions to Locker Protocols",
+        "state": "closed",
+        "created": 1713261249000,
+        "start": 1713261600000,
+        "end": 1713866400000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to improve incentive efficiency and redirect CAKE!",
+          "❌ No, we don’t want to improve incentive efficiency and redirect CAKE!"
+        ],
+        "scores": [
+          11182046.21300484,
+          45945.45385007065
+        ],
+        "scoresTotal": 11227991.66685491,
+        "votes": 747,
+        "quorum": 0,
+        "snapshot": 37906875,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x41feef37054b6c090a2629d6eb2ed39f426f169b725cb565903e6b3ba1771bcc"
+      },
+      {
+        "id": "0xbf8ac28356bd7ad863c7a1bf9fb66901b44430f274986a4e8793639f8214a747",
+        "title": "Proposal to recognize Mancake as an affiliate DEX on Mantle Network",
+        "state": "closed",
+        "created": 1712569681000,
+        "start": 1712570400000,
+        "end": 1712656800000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to recognize Mancake as an affiliate DEX!",
+          "❌ No, we don’t want to recognize Mancake as an affiliate DEX!"
+        ],
+        "scores": [
+          137269.29150261584,
+          540.9601957240327
+        ],
+        "scoresTotal": 137810.25169833988,
+        "votes": 274,
+        "quorum": 0,
+        "snapshot": 37676151,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xbf8ac28356bd7ad863c7a1bf9fb66901b44430f274986a4e8793639f8214a747"
+      },
+      {
+        "id": "0x57121617ce82be6faab483b2e83fa626593f51c4e9c71670be36bfaa6cd96bf1",
+        "title": "Proposal to Launch veCAKE on opBNB",
+        "state": "closed",
+        "created": 1712224901000,
+        "start": 1712226600000,
+        "end": 1712313000000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to launch veCAKE on opBNB!",
+          "❌ No, we don't want to launch veCAKE on opBNB!"
+        ],
+        "scores": [
+          112781.37947167493,
+          264.856941377025
+        ],
+        "scoresTotal": 113046.23641305197,
+        "votes": 249,
+        "quorum": 0,
+        "snapshot": 37562175,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x57121617ce82be6faab483b2e83fa626593f51c4e9c71670be36bfaa6cd96bf1"
+      },
+      {
+        "id": "0xb046ca86c5587dffc6e948f30dec896d1260b5e2d1c9dcdd6bd45ab4de167897",
+        "title": "The CAKE lock warehouse automatically exits the mechanism, listens to the CAKE HOLDER's opinions, and hopes the kitchen hears or sees our ideas",
+        "state": "closed",
+        "created": 1709293518000,
+        "start": 1709294400000,
+        "end": 1709899200000,
+        "author": "0xC7CE773A4D93a81a6F0534AeF8B450C23245638f",
+        "choices": [
+          "yes",
+          "no",
+          "Supported YES Unsupported NO"
+        ],
+        "scores": [
+          3270.668027872355,
+          1358576.8871372207,
+          0
+        ],
+        "scoresTotal": 1361847.5551650932,
+        "votes": 104,
+        "quorum": 0,
+        "snapshot": 36586559,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xb046ca86c5587dffc6e948f30dec896d1260b5e2d1c9dcdd6bd45ab4de167897"
+      },
+      {
+        "id": "0x30f2e5d8b5460f6377dc4bf46dc10da5236bd04666edd0d5c4545a6d3431a101",
+        "title": "Proposal to Launch veCAKE on Base",
+        "state": "closed",
+        "created": 1707319762000,
+        "start": 1707319800000,
+        "end": 1707406200000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, we want to launch veCAKE on Base!",
+          "❌ No, we don't want to launch veCAKE on Base!"
+        ],
+        "scores": [
+          124209.42583751348,
+          2660.1108180933875
+        ],
+        "scoresTotal": 126869.53665560688,
+        "votes": 252,
+        "quorum": 0,
+        "snapshot": 35930582,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x30f2e5d8b5460f6377dc4bf46dc10da5236bd04666edd0d5c4545a6d3431a101"
+      },
+      {
+        "id": "0xcc9f7e04931ef544388c33646a98883446c571dc844a113c230abec67906d1cb",
+        "title": "Proposal for a Pandora ($PANDORA) Farm on Ethereum",
+        "state": "closed",
+        "created": 1707310960000,
+        "start": 1707310800000,
+        "end": 1707397200000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ We want a PANDORA-WETH Farm on Ethereum!",
+          "❌ We don’t want a PANDORA-WETH Farm on Ethereum!"
+        ],
+        "scores": [
+          118336.68624910206,
+          17236.399114044078
+        ],
+        "scoresTotal": 135573.08536314615,
+        "votes": 228,
+        "quorum": 0,
+        "snapshot": 35927633,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xcc9f7e04931ef544388c33646a98883446c571dc844a113c230abec67906d1cb"
+      },
+      {
+        "id": "0x8eff088ca5d8c07a1a0be979533b6aa36dd098edb62714f948c06cf561817432",
+        "title": "Proposal for Kitchen-Discretionary CAKE Emissions",
+        "state": "closed",
+        "created": 1707230646000,
+        "start": 1707230700000,
+        "end": 1707489900000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to capture more TVL and volume!",
+          "❌ No, we don't want Kitchen-discretionary CAKE emissions!"
+        ],
+        "scores": [
+          7466821.887090493,
+          17897.387326448
+        ],
+        "scoresTotal": 7484719.274416941,
+        "votes": 617,
+        "quorum": 0,
+        "snapshot": 35900684,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x8eff088ca5d8c07a1a0be979533b6aa36dd098edb62714f948c06cf561817432"
+      },
+      {
+        "id": "0x12883dbf2fb692cd616a9ee5a9e90c8f87f8f11636278d3a7978074b339de1e0",
+        "title": "Proposal for Kitchen-Discretionary CAKE Emissions",
+        "state": "closed",
+        "created": 1706522992000,
+        "start": 1706526000000,
+        "end": 1706612400000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to capture more TVL and volume!",
+          "❌ No, we don't want Kitchen-discretionary CAKE emissions!"
+        ],
+        "scores": [
+          120839.7955876792,
+          202378.00857330117
+        ],
+        "scoresTotal": 323217.80416098057,
+        "votes": 375,
+        "quorum": 0,
+        "snapshot": 35665445,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x12883dbf2fb692cd616a9ee5a9e90c8f87f8f11636278d3a7978074b339de1e0"
+      },
+      {
+        "id": "0x9e3ad540dbb9f751a78b25e97d0044a7de9e43fc45aa146403d4f23a0506ae23",
+        "title": "Proposal to Launch veCAKE on Linea",
+        "state": "closed",
+        "created": 1705419701000,
+        "start": 1705420800000,
+        "end": 1705507200000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to launch veCAKE on Linea!",
+          "❌ No, we don't want to launch veCAKE on Linea!"
+        ],
+        "scores": [
+          171422.9370455646,
+          10251.490677138998
+        ],
+        "scoresTotal": 181674.42772270358,
+        "votes": 417,
+        "quorum": 0,
+        "snapshot": 35298553,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x9e3ad540dbb9f751a78b25e97d0044a7de9e43fc45aa146403d4f23a0506ae23"
+      },
+      {
+        "id": "0x826c8e306d0a7b24e337944a10f9a2cf91ddaef8f352de3577ee535bc0f769b7",
+        "title": "Project Proposal:Vina Cake: Transforming DeFi with Exclusive NFTs and User-Friendly Transactions.",
+        "state": "closed",
+        "created": 1705228952000,
+        "start": 1704628800000,
+        "end": 1707912000000,
+        "author": "0x4c2358A9aD2f25b94817d0e448fCFe15D7316db9",
+        "choices": [
+          "YES, WE WANT.",
+          "NO, WE DONT WANT."
+        ],
+        "scores": [
+          28549.690794287304,
+          103.43738566441348
+        ],
+        "scoresTotal": 28653.12817995172,
+        "votes": 221,
+        "quorum": 0,
+        "snapshot": 35234970,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x826c8e306d0a7b24e337944a10f9a2cf91ddaef8f352de3577ee535bc0f769b7"
+      },
+      {
+        "id": "0x56b75163f3e555a746b159e134fc857e47a7c5aaef7c9f1a5c20cc1b5ef7e174",
+        "title": "Proposal for Enable HTD/USDT (0.05% fee tier) V3 gauge on BNB Chain",
+        "state": "closed",
+        "created": 1704818886000,
+        "start": 1704817800000,
+        "end": 1704988800000,
+        "author": "0x4c2358A9aD2f25b94817d0e448fCFe15D7316db9",
+        "choices": [
+          "Yes, we want to Enable HTD/USDT (0.05% fee tier) V3 gauge on BNB Chain",
+          "No, we don't want to Enable HTD/USDT (0.05% fee tier) V3 gauge on BNB Chain"
+        ],
+        "scores": [
+          21928.302802023987,
+          2.02773605765758
+        ],
+        "scoresTotal": 21930.330538081642,
+        "votes": 63,
+        "quorum": 0,
+        "snapshot": 35098573,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x56b75163f3e555a746b159e134fc857e47a7c5aaef7c9f1a5c20cc1b5ef7e174"
+      },
+      {
+        "id": "0x5ed417523e835147d4708643950973cd2d1bf5998e444dbd41956b225df0b6ed",
+        "title": "Proposal for a Xai Network ($XAI) Farm on Arbitrum",
+        "state": "closed",
+        "created": 1704717528000,
+        "start": 1704708000000,
+        "end": 1704794400000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ We want a XAI-WETH Farm on Arbitrum!",
+          "❌ We don’t want a XAI-WETH Farm on Arbitrum!"
+        ],
+        "scores": [
+          124224.97016785233,
+          4601.9136273949625
+        ],
+        "scoresTotal": 128826.88379524727,
+        "votes": 354,
+        "quorum": 0,
+        "snapshot": 35065001,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x5ed417523e835147d4708643950973cd2d1bf5998e444dbd41956b225df0b6ed"
+      },
+      {
+        "id": "0xcbbd4b19bae851cb123f668bfacd2479e26848ea47714526bd5ca6dd8c001736",
+        "title": "Proposal to Launch veCAKE on Polygon zkEVM",
+        "state": "closed",
+        "created": 1704364833000,
+        "start": 1704364200000,
+        "end": 1704450600000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to launch veCAKE on Polygon zkEVM!",
+          "❌ No, we don't want to launch veCAKE on Polygon zkEVM!"
+        ],
+        "scores": [
+          365049.6492675451,
+          9279.707318665258
+        ],
+        "scoresTotal": 374329.3565862103,
+        "votes": 749,
+        "quorum": 0,
+        "snapshot": 34947619,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xcbbd4b19bae851cb123f668bfacd2479e26848ea47714526bd5ca6dd8c001736"
+      },
+      {
+        "id": "0x9c54bc5c0861dc3131459c9e434a63a146200ef7fa17ac5348373bb1e03a2cee",
+        "title": "Proposal for Cakepie ($CKP) cIFO to be Hosted on PancakeSwap",
+        "state": "closed",
+        "created": 1703868219000,
+        "start": 1703950200000,
+        "end": 1704036600000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, let’s host the $CKP cIFO!",
+          "❌ No, do not host the $CKP cIFO!"
+        ],
+        "scores": [
+          516630.51638181193,
+          16556.712714105877
+        ],
+        "scoresTotal": 533187.2290959177,
+        "votes": 420,
+        "quorum": 0,
+        "snapshot": 34781470,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x9c54bc5c0861dc3131459c9e434a63a146200ef7fa17ac5348373bb1e03a2cee"
+      },
+      {
+        "id": "0x3e014aab40f6551da9f76da0e62e44e9ece55c4997f220057bf3e42dc8307c2f",
+        "title": "Proposal to Reduce CAKE Token Total Supply",
+        "state": "closed",
+        "created": 1703749938000,
+        "start": 1703750400000,
+        "end": 1703836800000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, we want to lower CAKE’s token supply!",
+          "❌ No, we don't want to lower CAKE’s token supply!"
+        ],
+        "scores": [
+          858490.5276653455,
+          18615.505507503723
+        ],
+        "scoresTotal": 877106.0331728497,
+        "votes": 1885,
+        "quorum": 0,
+        "snapshot": 34743087,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x3e014aab40f6551da9f76da0e62e44e9ece55c4997f220057bf3e42dc8307c2f"
+      },
+      {
+        "id": "0x18c9da4b826e05fc7e79ee7a5a13748bacf362888ef210242f2e05bfa27e21ee",
+        "title": "EMPOWER ULTRASOUND CAKE",
+        "state": "closed",
+        "created": 1703287602000,
+        "start": 1703296800000,
+        "end": 1704927600000,
+        "author": "0x8F8d37073c875f74fef5b708fbe081576183C179",
+        "choices": [
+          "Yes! Let's empower Ultrasound CAKE!!!",
+          "No, I don´t care for Ultrasound CAKE"
+        ],
+        "scores": [
+          54693.259855796045,
+          0
+        ],
+        "scoresTotal": 54693.259855796045,
+        "votes": 100,
+        "quorum": 0,
+        "snapshot": 34589358,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x18c9da4b826e05fc7e79ee7a5a13748bacf362888ef210242f2e05bfa27e21ee"
+      },
+      {
+        "id": "0x0aebf3093bc6f4564ab84047fdf9c12f47cd3f308cc06f9942e15ca28f660e9a",
+        "title": "Proposal to Launch veCAKE on zkSync",
+        "state": "closed",
+        "created": 1703249761000,
+        "start": 1703250000000,
+        "end": 1703336400000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, we want to launch veCAKE on zkSync!",
+          "❌ No, we don't want to launch veCAKE on zkSync!"
+        ],
+        "scores": [
+          193630.9412506096,
+          1966.697868880408
+        ],
+        "scoresTotal": 195597.63911948996,
+        "votes": 361,
+        "quorum": 0,
+        "snapshot": 34576862,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x0aebf3093bc6f4564ab84047fdf9c12f47cd3f308cc06f9942e15ca28f660e9a"
+      },
+      {
+        "id": "0x43634098cfa3dff3a8943ce27159f2020db09333d6d7b2ebad6167cdcc3eecce",
+        "title": "More Passive Income from Pool with balanced stable Supply",
+        "state": "closed",
+        "created": 1703226937000,
+        "start": 1703318400000,
+        "end": 1704059100000,
+        "author": "0x0711de882846C873b7125FacD54631358AD1699F",
+        "choices": [
+          "More Rewards and Passive income with less deflation",
+          "MUCH More Rewards and Passive Income with balanced stable Total Supply. (Every week all aditional minted cakes which would be burned to create deflation will be gived to veCake shares as rewards",
+          "Nothing. Keep same deflation and same Rewards"
+        ],
+        "scores": [
+          18101.86032626503,
+          120.87364967018782,
+          4430.621314368001
+        ],
+        "scoresTotal": 22653.355290303214,
+        "votes": 35,
+        "quorum": 0,
+        "snapshot": 34568546,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x43634098cfa3dff3a8943ce27159f2020db09333d6d7b2ebad6167cdcc3eecce"
+      },
+      {
+        "id": "0x40ce9e500c724623f57131fe7ad958f8912394f694f98318af3da2cbfa7946ab",
+        "title": "Proposal for APX Finance ($ALP) Syrup Pool on opBNB",
+        "state": "closed",
+        "created": 1702980948000,
+        "start": 1702980000000,
+        "end": 1703066400000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ We want to earn CAKE tokens!",
+          "❌ We don’t want to earn CAKE tokens!"
+        ],
+        "scores": [
+          128696.03101058018,
+          2290.324785932752
+        ],
+        "scoresTotal": 130986.3557965129,
+        "votes": 228,
+        "quorum": 0,
+        "snapshot": 34487488,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x40ce9e500c724623f57131fe7ad958f8912394f694f98318af3da2cbfa7946ab"
+      },
+      {
+        "id": "0xe32f072ba940d348887681762dbb6a4cf665ea818207fafcbfdc92c7ad9d5de1",
+        "title": "Squad staking",
+        "state": "closed",
+        "created": 1702885390000,
+        "start": 1702881900000,
+        "end": 1703502000000,
+        "author": "0x04d08338c5634ec3a5693b6E56d892c4ba80A7fb",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "scores": [
+          3349.4247405617107,
+          16.145174698839526
+        ],
+        "scoresTotal": 3365.5699152605503,
+        "votes": 37,
+        "quorum": 0,
+        "snapshot": 34455784,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xe32f072ba940d348887681762dbb6a4cf665ea818207fafcbfdc92c7ad9d5de1"
+      },
+      {
+        "id": "0x42d83e1b454716dc1aba80560a5df7961e352808fd61107a6e716537584e3f3b",
+        "title": "Proposal for Adding CAKE Allocation to Bootstrap opBNB Liquidity",
+        "state": "closed",
+        "created": 1702875494000,
+        "start": 1702875600000,
+        "end": 1702940400000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, launch opBNB farms!",
+          "❌ No, don't launch opBNB farms!"
+        ],
+        "scores": [
+          116661.44398095312,
+          476.7699608350165
+        ],
+        "scoresTotal": 117138.21394178817,
+        "votes": 207,
+        "quorum": 0,
+        "snapshot": 34452387,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x42d83e1b454716dc1aba80560a5df7961e352808fd61107a6e716537584e3f3b"
+      },
+      {
+        "id": "0x6c14577663a6a678273d8901ad34005bee0b33c84f3d486e7c819c7f93da2b9e",
+        "title": "NOT BEGGING. I NEED UNLOCK MY 76,000 CAKE TOKENS :(",
+        "state": "closed",
+        "created": 1702810861000,
+        "start": 1702810860000,
+        "end": 1702873800000,
+        "author": "0xC0536D1fB539dc796A585Ed6FC678ADFccdb800f",
+        "choices": [
+          "TEAM SHOULD HELP & CONTACT",
+          "TEAM SHOULDNT HELP & CONTACT"
+        ],
+        "scores": [
+          6167.7723147112,
+          3.6769834499043026
+        ],
+        "scoresTotal": 6171.449298161105,
+        "votes": 7,
+        "quorum": 0,
+        "snapshot": 34430961,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x6c14577663a6a678273d8901ad34005bee0b33c84f3d486e7c819c7f93da2b9e"
+      },
+      {
+        "id": "0x878e40a72c549bb3c29811bce13275aae4e4ac0b9f0d7b5b1466badea4c3c9ac",
+        "title": "Help me, I got a lot of problems, but you can solve it. I HAVE LOCKED 76,000 IM NOT BEGGAR!",
+        "state": "closed",
+        "created": 1702810311000,
+        "start": 1702810320000,
+        "end": 1702932300000,
+        "author": "0xa61936B65feF8ED8Fd1f42A04dFE5C7DbECF1027",
+        "choices": [
+          "team should contact & help",
+          "team shouldn't contact & help"
+        ],
+        "scores": [
+          6156.283056196628,
+          0
+        ],
+        "scoresTotal": 6156.283056196628,
+        "votes": 5,
+        "quorum": 0,
+        "snapshot": 34430788,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x878e40a72c549bb3c29811bce13275aae4e4ac0b9f0d7b5b1466badea4c3c9ac"
+      },
+      {
+        "id": "0x921be10a85b9399127b621dbfd5a7b569423944a5aaf7ca9f2f86531177a3cf9",
+        "title": "Help me, I got a lot of problems, but you can solve it.",
+        "state": "closed",
+        "created": 1702808220000,
+        "start": 1702809000000,
+        "end": 1704055500000,
+        "author": "0xa61936B65feF8ED8Fd1f42A04dFE5C7DbECF1027",
+        "choices": [
+          "Team should help",
+          "Team shouldn't help"
+        ],
+        "scores": [
+          5719.445402281302,
+          3138.683404601989
+        ],
+        "scoresTotal": 8858.128806883293,
+        "votes": 19,
+        "quorum": 0,
+        "snapshot": 34430109,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x921be10a85b9399127b621dbfd5a7b569423944a5aaf7ca9f2f86531177a3cf9"
+      },
+      {
+        "id": "0xb369b4e9036a689b285a62e9c811c7b95e8688d8d3f7b761ba279213230ac36a",
+        "title": "Merry Christmas wishes",
+        "state": "closed",
+        "created": 1702786690000,
+        "start": 1702786690000,
+        "end": 1703045890000,
+        "author": "0x06f2e05156e1775b5eD7916DB308B56b268d11e0",
+        "choices": [
+          "Song",
+          "Wishes"
+        ],
+        "scores": [
+          1203.971997231446,
+          131.80869411030287
+        ],
+        "scoresTotal": 1335.780691341749,
+        "votes": 14,
+        "quorum": 0,
+        "snapshot": 34422986,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xb369b4e9036a689b285a62e9c811c7b95e8688d8d3f7b761ba279213230ac36a"
+      },
+      {
+        "id": "0x50284261c72764231845e58ed33e6fde24ac38d7c1563187b65cebc634b054e2",
+        "title": "🎄🎅❄️🎁🦌⛄🎄2024🎊",
+        "state": "closed",
+        "created": 1702769508000,
+        "start": 1702770300000,
+        "end": 1703968200000,
+        "author": "0x06FFF56E8139a509578A846efdee1e5278cd0E94",
+        "choices": [
+          "yes,🎅🎊🎄🎁",
+          "no????"
+        ],
+        "scores": [
+          1907.5123954674905,
+          0
+        ],
+        "scoresTotal": 1907.5123954674905,
+        "votes": 26,
+        "quorum": 0,
+        "snapshot": 34417271,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x50284261c72764231845e58ed33e6fde24ac38d7c1563187b65cebc634b054e2"
+      },
+      {
+        "id": "0x1b9abebac478e44b11bd93071c4332d79ebf13d24842f5416c630c165fb575e7",
+        "title": "Proposal for CAKE allocation to Position Managers",
+        "state": "closed",
+        "created": 1702652813000,
+        "start": 1702653300000,
+        "end": 1702739700000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "✅ Yes, allocate CAKE rewards for Position Managers!",
+          "❌ No, do not allocate CAKE rewards for Position Managers!"
+        ],
+        "scores": [
+          385997.8621176323,
+          5017.9649726238695
+        ],
+        "scoresTotal": 391015.82709025627,
+        "votes": 227,
+        "quorum": 0,
+        "snapshot": 34378783,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x1b9abebac478e44b11bd93071c4332d79ebf13d24842f5416c630c165fb575e7"
+      },
+      {
+        "id": "0x4b3aeb7134acf328e6c1286c7b540b3625c042ca5c323b7fe331d894fea334ad",
+        "title": "test",
+        "state": "closed",
+        "created": 1702652131000,
+        "start": 1702566000000,
+        "end": 1702737000000,
+        "author": "0xa7551aBe0A066555cb5d859849426fB55543Ca25",
+        "choices": [
+          "1",
+          "2"
+        ],
+        "scores": [
+          276035.3037820192,
+          3899.6826790482246
+        ],
+        "scoresTotal": 279934.98646106734,
+        "votes": 172,
+        "quorum": 0,
+        "snapshot": 34378436,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x4b3aeb7134acf328e6c1286c7b540b3625c042ca5c323b7fe331d894fea334ad"
+      },
+      {
+        "id": "0xbb57368e519eb4f19ea3b11df7b60e842936da339866c05d557dcf14053c4cb7",
+        "title": "test",
+        "state": "closed",
+        "created": 1702651775000,
+        "start": 1702655100000,
+        "end": 1702655100000,
+        "author": "0xa7A01B93B889ff0639d5ec02914A77529924a46F",
+        "choices": [
+          "1",
+          "2"
+        ],
+        "scores": [
+          0,
+          0
+        ],
+        "scoresTotal": 0,
+        "votes": 0,
+        "quorum": 0,
+        "snapshot": 34378555,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xbb57368e519eb4f19ea3b11df7b60e842936da339866c05d557dcf14053c4cb7"
+      },
+      {
+        "id": "0xba946097dcea923e4dfe0a772ccce0563d3dae94970eeafd75248195e25c3ddc",
+        "title": "We need platform to farm memecoins with CAKE",
+        "state": "closed",
+        "created": 1702626510000,
+        "start": 1702626510000,
+        "end": 1702885680000,
+        "author": "0xebE8E8bE0A0c6fF16a83162885473bAbf8A02A4E",
+        "choices": [
+          "FOR",
+          "AGAINST"
+        ],
+        "scores": [
+          38812.25978125911,
+          0.1
+        ],
+        "scoresTotal": 38812.35978125911,
+        "votes": 105,
+        "quorum": 0,
+        "snapshot": 34370157,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xba946097dcea923e4dfe0a772ccce0563d3dae94970eeafd75248195e25c3ddc"
+      },
+      {
+        "id": "0xf566bb16f18af96d4ae00f1f2274c27212b605a5b8c132f4cc9061d33a175282",
+        "title": "Vote giúp mình nha",
+        "state": "closed",
+        "created": 1702573141000,
+        "start": 1702490400000,
+        "end": 1702745100000,
+        "author": "0xA2FF81b1Af38542EEe688B80f3371DF6295631F6",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "scores": [
+          1393.6076444976306,
+          0.2
+        ],
+        "scoresTotal": 1393.8076444976305,
+        "votes": 93,
+        "quorum": 0,
+        "snapshot": 34352340,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xf566bb16f18af96d4ae00f1f2274c27212b605a5b8c132f4cc9061d33a175282"
+      },
+      {
+        "id": "0x3cd2fb80568fbd0c899687a77b8bc522d1d5c22ed32eb5588fd5b0b5de3a7e17",
+        "title": "Locked Cake holders should receive compensation",
+        "state": "closed",
+        "created": 1702542174000,
+        "start": 1702539000000,
+        "end": 1702810800000,
+        "author": "0xF179cC4724e500dA527e8cB2e6A47F64437488e5",
+        "choices": [
+          "Receive % of locked tokens",
+          "Receive Exclusive NFT",
+          "Cake Held hostage with no compensation"
+        ],
+        "scores": [
+          1202430.8735439377,
+          129043.48974065724,
+          0
+        ],
+        "scoresTotal": 1331474.3632845948,
+        "votes": 120,
+        "quorum": 0,
+        "snapshot": 34341957,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x3cd2fb80568fbd0c899687a77b8bc522d1d5c22ed32eb5588fd5b0b5de3a7e17"
+      },
+      {
+        "id": "0x69bd68421d0eb7da0efd683416a6fa63ef004a7c5ce20b90ef5aab21d69c82c5",
+        "title": "Will you buy more CAKE in 2023?",
+        "state": "closed",
+        "created": 1702522593000,
+        "start": 1702522592000,
+        "end": 1703040960000,
+        "author": "0x70b494129Dba21017907baCB411b12dd13Df825f",
+        "choices": [
+          "Yes",
+          "No",
+          "Not sure"
+        ],
+        "scores": [
+          137802.4064424003,
+          4635.045113984061,
+          1.1774782875940122
+        ],
+        "scoresTotal": 142438.62903467196,
+        "votes": 129,
+        "quorum": 0,
+        "snapshot": 34335635,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x69bd68421d0eb7da0efd683416a6fa63ef004a7c5ce20b90ef5aab21d69c82c5"
+      },
+      {
+        "id": "0xdceb4875d5a10c9f639e06b8c377de3d580de55974af5ee7e58dd0a9f9da1463",
+        "title": "Preferred CAKE tokenomics going forward?",
+        "state": "closed",
+        "created": 1702522543000,
+        "start": 1702522542000,
+        "end": 1703127240000,
+        "author": "0x70b494129Dba21017907baCB411b12dd13Df825f",
+        "choices": [
+          "High inflation + staking APY",
+          "Lower inflation + staking APY",
+          "No change"
+        ],
+        "scores": [
+          3523.1774886702315,
+          29592.35340642683,
+          279.9890229141624
+        ],
+        "scoresTotal": 33395.519918011225,
+        "votes": 112,
+        "quorum": 0,
+        "snapshot": 34335596,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xdceb4875d5a10c9f639e06b8c377de3d580de55974af5ee7e58dd0a9f9da1463"
+      },
+      {
+        "id": "0x4d1f10a8c2abe05c93994959307f619c1dc2e998eb5dd30be3f1ba5307e36a23",
+        "title": "BNB and CAKE now a stakeable on the best non-custodial (zero risk) staking platform, with upto 184% APY",
+        "state": "closed",
+        "created": 1702483137000,
+        "start": 1702483137000,
+        "end": 1703669940000,
+        "author": "0x43b1c949123b3FD644Fc39Ff04F0624826D64E16",
+        "choices": [
+          "For",
+          "Against",
+          "Abstain"
+        ],
+        "scores": [
+          53723.88328216729,
+          283.13166952379936,
+          3.919938595159583
+        ],
+        "scoresTotal": 54010.93489028625,
+        "votes": 139,
+        "quorum": 0,
+        "snapshot": 34322510,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x4d1f10a8c2abe05c93994959307f619c1dc2e998eb5dd30be3f1ba5307e36a23"
+      },
+      {
+        "id": "0x618ae56f06c3a7ee071abaac9556ec64bc03efab54bb44a958324daeb3b158ae",
+        "title": "Pyth Network Retrospective Airdrop for PancakeSwap users",
+        "state": "closed",
+        "created": 1702464136000,
+        "start": 1702464135000,
+        "end": 1702723335000,
+        "author": "0xF56D4380594624c6Bdd9Ee58D6060F4310733285",
+        "choices": [
+          "For",
+          "Against",
+          "Abstain"
+        ],
+        "scores": [
+          48878.62820186044,
+          1.151248862126146,
+          0.44116054184449666
+        ],
+        "scoresTotal": 48880.220611264405,
+        "votes": 134,
+        "quorum": 0,
+        "snapshot": 34316188,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x618ae56f06c3a7ee071abaac9556ec64bc03efab54bb44a958324daeb3b158ae"
+      },
+      {
+        "id": "0xbfd1988eb0b48a966fbc809f3713258d1743c3ab61876cc9012e625116a93a1e",
+        "title": "Proposal to migrate vCAKE to veCAKE",
+        "state": "closed",
+        "created": 1702379635000,
+        "start": 1702380600000,
+        "end": 1702467000000,
+        "author": "0x4a7b8400AE131feffC42E5Bf39401A094Ed497CA",
+        "choices": [
+          "✅ Yes, migrate vCAKE to veCAKE!",
+          "❌ No, do not migrate vCAKE to veCAKE!"
+        ],
+        "scores": [
+          21513450.25573803,
+          491936.6713908595
+        ],
+        "scoresTotal": 22005386.927128892,
+        "votes": 550,
+        "quorum": 0,
+        "snapshot": 34287796,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xbfd1988eb0b48a966fbc809f3713258d1743c3ab61876cc9012e625116a93a1e"
+      },
+      {
+        "id": "0xcc86fc83970a77350be16dd82b1f14412cc951e5602530d53d742d840747c4c8",
+        "title": "Is Cake really deflationary?",
+        "state": "closed",
+        "created": 1702369196000,
+        "start": 1702369195000,
+        "end": 1702628395000,
+        "author": "0x77422fD76A39d216619F5AE2596bb5B12E8E3B0E",
+        "choices": [
+          "Yes",
+          "No"
+        ],
+        "scores": [
+          121445.678688828,
+          22788.775092436856
+        ],
+        "scoresTotal": 144234.45378126483,
+        "votes": 151,
+        "quorum": 0,
+        "snapshot": 34284602,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xcc86fc83970a77350be16dd82b1f14412cc951e5602530d53d742d840747c4c8"
+      },
+      {
+        "id": "0x70502e0499ddcda4ec749dc755cbdfd451508487b67f989cfca6b916fdc02da0",
+        "title": "Fix Syrup Pools, or change it.",
+        "state": "closed",
+        "created": 1702368647000,
+        "start": 1702365300000,
+        "end": 1703574900000,
+        "author": "0x1830E4e417512774e88eBD8837A0eBc8bB56222b",
+        "choices": [
+          "Deprecate Syrup Pools",
+          "Find a better implementation to incentivize Syrup Pools"
+        ],
+        "scores": [
+          72030.80894557897,
+          232765.4571774087
+        ],
+        "scoresTotal": 304796.26612298784,
+        "votes": 157,
+        "quorum": 0,
+        "snapshot": 34284152,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x70502e0499ddcda4ec749dc755cbdfd451508487b67f989cfca6b916fdc02da0"
+      },
+      {
+        "id": "0x00843d1358b33314df993c6381efd242babb82b880cbaf1dcac4bc8b2f976672",
+        "title": "Bitcoin price prediction by 2024?",
+        "state": "closed",
+        "created": 1702361078000,
+        "start": 1702361077000,
+        "end": 1704002580000,
+        "author": "0x64bDC75ee2f2E2c89f2acAFAE5bac4f1Cd553845",
+        "choices": [
+          "Under 100000",
+          "Above 100000"
+        ],
+        "scores": [
+          35330.58416046431,
+          124831.39243098386
+        ],
+        "scoresTotal": 160161.97659144818,
+        "votes": 145,
+        "quorum": 0,
+        "snapshot": 34281887,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0x00843d1358b33314df993c6381efd242babb82b880cbaf1dcac4bc8b2f976672"
+      },
+      {
+        "id": "0xb47062278f391fdf5ca2c4918d0218bc88062608a1715ff98d23e072541136cf",
+        "title": "Pancake should Create it's own NFT Marketplace?",
+        "state": "closed",
+        "created": 1702360762000,
+        "start": 1702360761000,
+        "end": 1702619961000,
+        "author": "0xE08b9Ac5A19Eef67940E26e9417042DC45690E7a",
+        "choices": [
+          "Yes",
+          "NOO"
+        ],
+        "scores": [
+          122864.30009876942,
+          0.2
+        ],
+        "scoresTotal": 122864.50009876944,
+        "votes": 116,
+        "quorum": 0,
+        "snapshot": 34281796,
+        "link": "https://snapshot.box/#/s:cakevote.eth/proposal/0xb47062278f391fdf5ca2c4918d0218bc88062608a1715ff98d23e072541136cf"
+      }
+    ]
+  }
+}

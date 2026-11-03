@@ -1,20 +1,39 @@
 "use client";
 import { useCallback, useEffect, useRef, useState } from "react";
-import { ArrowUpRight, ArrowRight, RefreshCw, Bell, X, ExternalLink, ChevronDown, Flame, Activity, Layers3, ArrowDownToLine, Check, Plus, Trash2, Pause, Play, Info, CircleHelp, ShieldCheck, Coins, TrendingDown, TrendingUp, BarChart3, Wallet, Clock3 } from "lucide-react";
+import { ArrowUpRight, ArrowRight, RefreshCw, Bell, X, ExternalLink, ChevronDown, Flame, Activity, Layers3, ArrowDownToLine, Check, Plus, Trash2, Pause, Play, Info, CircleHelp, ShieldCheck, Coins, TrendingDown, TrendingUp, BarChart3, Wallet, Clock3, Landmark, Vote, Users } from "lucide-react";
 import { BurnChart, TrendChart, EmptyChart, Sparkline, COLORS, compact, productColor } from "@/components/monitor-charts";
 import { evaluateRule, isFresh } from "@/lib/metrics";
 import { loadClientSection } from "@/lib/client-data";
-import type { AlertEvent, AlertRule, Dashboard, Section, Source } from "@/lib/monitor-types";
+import type { AlertEvent, AlertRule, Dashboard, Governance, GovernanceProposal, GovernanceState, Section, Source } from "@/lib/monitor-types";
 
-const KEYS: Section[] = ["market", "protocol", "burns", "chain", "prices"];
-const NAV = [{ id: "overview", label: "总览" }, { id: "burn", label: "CAKE 销毁" }, { id: "protocol", label: "协议活动" }, { id: "supply", label: "供应与行情" }];
+const KEYS: Section[] = ["market", "protocol", "burns", "chain", "prices", "governance"];
+const NAV = [{ id: "overview", label: "总览" }, { id: "burn", label: "CAKE 销毁" }, { id: "protocol", label: "协议活动" }, { id: "supply", label: "供应与行情" }, { id: "governance", label: "治理提案" }];
 const CAKE = "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82";
-const empty: Dashboard = { market: null, protocol: null, burns: null, chain: null, prices: null };
+const empty: Dashboard = { market: null, protocol: null, burns: null, chain: null, prices: null, governance: null };
 const num = (n: number | null | undefined, digits = 2) => n === null || n === undefined ? "—" : compact(n, digits);
 const usd = (n: number | null | undefined) => n === null || n === undefined ? "—" : `$${compact(n)}`;
 const precise = (n: number | null | undefined) => n === null || n === undefined ? "—" : n.toLocaleString("en-US", { maximumFractionDigits: 2 });
 const dateTime = (n: string | null | undefined) => n ? new Date(n).toLocaleString("zh-CN", { timeZone: "Asia/Shanghai", hour12: false }) : "尚未取得";
 const dateUTC = (n: string | number) => new Date(n).toLocaleDateString("zh-CN", { year: "numeric", month: "2-digit", day: "2-digit", timeZone: "UTC" });
+const duration = (seconds: number | null | undefined) => seconds === null || seconds === undefined ? "—" : seconds >= 86_400 ? `${+(seconds / 86_400).toFixed(1)} 天` : seconds >= 3_600 ? `${+(seconds / 3_600).toFixed(1)} 小时` : `${Math.max(1, Math.round(seconds / 60))} 分钟`;
+const shortAddress = (value: string) => /^0x[\da-f]{40}$/i.test(value) ? `${value.slice(0, 6)}…${value.slice(-4)}` : value;
+const govStateText: Record<GovernanceState, string> = { active: "投票中", pending: "待开始", closed: "已结束" };
+function choiceValue(choice: string) { return choice.trim().toLowerCase().replace(/^[^a-z]+/, "").trim(); }
+function choiceText(choice: string) {
+  const value = choiceValue(choice);
+  if (/^(for|yes|approve|support)\b/.test(value)) return "赞成";
+  if (/^(against|no|reject|oppose)\b/.test(value)) return "反对";
+  if (value.includes("abstain")) return "弃权";
+  const raw = choice.trim();
+  return raw.length > 42 ? `${raw.slice(0, 42)}…` : raw;
+}
+function choiceTone(choice: string) {
+  const value = choiceValue(choice);
+  if (/^(for|yes|approve|support)\b/.test(value)) return "for";
+  if (/^(against|no|reject|oppose)\b/.test(value)) return "against";
+  if (value.includes("abstain")) return "abstain";
+  return "other";
+}
 function LinkOut({ href, children, className = "" }: { href: string; children: React.ReactNode; className?: string }) { return <a className={className} href={href} target="_blank" rel="noopener noreferrer">{children}<ArrowUpRight size={13} /></a>; }
 function Change({ value }: { value: number | null | undefined }) { return value === null || value === undefined ? null : <span className={`change ${value >= 0 ? "positive" : "negative"}`}>{value >= 0 ? "+" : ""}{value.toFixed(2)}%<span className="change-time">24h</span></span>; }
 function Stamp({ source }: { source: Source<unknown> | null }) {
@@ -47,6 +66,67 @@ function Distribution({ items, unit = "CAKE" }: { items: { name: string; value: 
 function Metric({ title, en, value, note, children, icon }: { title: string; en: string; value: string; note?: string; children?: React.ReactNode; icon?: React.ReactNode }) {
   const symbol = icon ?? (en.includes("VOLUME") ? <BarChart3 size={19} /> : en.includes("FEE") || en.includes("REVENUE") ? <Wallet size={19} /> : en.includes("CHANGE") || en.includes("REDUCTION") ? <TrendingDown size={19} /> : <Coins size={19} />);
   return <div className="metric"><div className="metric-heading"><span className="metric-icon">{symbol}</span><div><div className="metric-title">{title}</div><div className="en-label">{en}</div></div></div><div className="metric-value">{value}</div><div className="metric-note">{children ?? note ?? "等待数据"}</div></div>;
+}
+function ProposalCard({ proposal }: { proposal: GovernanceProposal }) {
+  const total = proposal.scoresTotal;
+  const stack = proposal.choices.map((choice, i) => ({ choice, tone: choiceTone(choice), score: proposal.scores[i], share: total > 0 ? proposal.scores[i] / total * 100 : 0 }));
+  return <article className="gov-item">
+    <div className="gov-item-top"><span className={`gov-badge ${proposal.state}`}>{govStateText[proposal.state]}</span><span className="gov-window">{dateUTC(proposal.start)} → {dateUTC(proposal.end)} UTC</span><span className="gov-participation">{proposal.votes} 个地址 · {num(total)} CAKE</span></div>
+    <h3 className="gov-title"><a href={proposal.link} target="_blank" rel="noopener noreferrer">{proposal.title}</a></h3>
+    <div className="gov-stacked" role="img" aria-label={`${proposal.title} 投票结果，共 ${proposal.votes} 个地址参与`}>{stack.map((item, i) => <span key={`${proposal.id}-${i}`} className={item.tone} style={{ width: `${item.share}%` }} title={`${choiceText(item.choice)} · ${num(item.score)} CAKE · ${item.share.toFixed(1)}%`} />)}{total <= 0 && <span className="other" style={{ width: "100%" }} />}</div>
+    <div className="gov-legend">{stack.map((item, i) => <span key={`${proposal.id}-legend-${i}`} title={item.choice}><i className={item.tone} />{choiceText(item.choice)} <strong>{num(item.score)}</strong><small>{item.share.toFixed(1)}%</small></span>)}</div>
+    <div className="gov-item-foot"><span>提案人 {shortAddress(proposal.author)}</span>{proposal.snapshot !== null && <span>快照区块 #{proposal.snapshot.toLocaleString("en-US")}</span>}<LinkOut href={proposal.link}>查看提案</LinkOut></div>
+  </article>;
+}
+function GovernanceView({ source }: { source: Source<Governance> | null }) {
+  const [filter, setFilter] = useState<"all" | "active" | "closed">("all");
+  const [page, setPage] = useState(1);
+  const data = source?.data ?? null;
+  const proposals = data?.proposals ?? [];
+  const active = proposals.filter((p) => p.state === "active").length;
+  const pending = proposals.filter((p) => p.state === "pending").length;
+  const filtered = proposals.filter((p) => filter === "all" || (filter === "active" ? p.state !== "closed" : p.state === "closed"));
+  const pages = Math.max(1, Math.ceil(filtered.length / 8));
+  const current = Math.min(page, pages);
+  const visible = filtered.slice((current - 1) * 8, current * 8);
+  const latest = proposals[0] ?? null;
+  const latestTop = latest && latest.scoresTotal > 0 ? Math.max(...latest.scores) / latest.scoresTotal * 100 : null;
+  const choose = (next: typeof filter) => { setFilter(next); setPage(1); };
+  const strategy = data ? data.strategies.includes("erc20-balance-of") ? "CAKE 余额 · BNB Chain" : data.strategies.join("、") : "—";
+  return <>
+    <div className="metrics-grid">
+      <Metric title="治理提案总数" en="TOTAL PROPOSALS" value={data ? data.space.proposals.toLocaleString("en-US") : "—"} note="Snapshot · cakevote.eth · 累计提案" icon={<Landmark size={18} />} />
+      <Metric title="投票进行中" en="ACTIVE NOW" value={`${active}`} note={pending ? `${pending} 个提案待开始` : latest ? `最近提案 ${dateUTC(latest.end)} 结束` : "等待提案数据"} icon={<Vote size={18} />} />
+      <Metric title="最近一次投票参与" en="LATEST PARTICIPATION" value={latest ? num(latest.scoresTotal) : "—"} note={latest ? `CAKE · ${latest.votes} 个地址参与` : "等待提案数据"} icon={<Users size={18} />} />
+      <Metric title="最新提案领先选项" en="LEADING SHARE" value={latestTop === null ? "—" : `${latestTop.toFixed(1)}%`} note="按投票权重计算 · 最新提案" icon={<TrendingUp size={18} />} />
+    </div>
+    <Panel title="提案与投票结果" en="SNAPSHOT PROPOSALS & RESULTS" action={<span className="small-pill">最近 {proposals.length} 个</span>}>
+      <div className="gov-toolbar"><div className="text-tabs"><button className={filter === "all" ? "active" : ""} onClick={() => choose("all")}>全部 <span>{proposals.length}</span></button><button className={filter === "active" ? "active" : ""} onClick={() => choose("active")}>进行中 <span>{active + pending}</span></button><button className={filter === "closed" ? "active" : ""} onClick={() => choose("closed")}>已结束 <span>{proposals.length - active - pending}</span></button></div><span className="chart-unit">标题保留 Snapshot 原文 · UTC</span></div>
+      {visible.length ? <div className="gov-list">{visible.map((proposal) => <ProposalCard key={proposal.id} proposal={proposal} />)}</div> : <EmptyChart message={source?.status === "unavailable" ? "治理提案暂不可用" : source ? "这个筛选下暂无提案" : undefined} />}
+      <div className="gov-pager"><span>第 {current} / {pages} 页 · 共 {filtered.length} 个提案</span><div><button disabled={current <= 1} onClick={() => setPage(current - 1)}>上一页</button><button disabled={current >= pages} onClick={() => setPage(current + 1)}>下一页</button></div></div>
+      <div className="panel-foot"><Stamp source={source} /><span>只读取最近 60 个提案 · 更早记录见 Snapshot</span></div>
+    </Panel>
+    <div className="content-grid gov-info-grid">
+      <Panel title="治理如何运作" en="HOW CAKE GOVERNANCE WORKS">
+        <div className="flow-step"><span>01</span><div><h3>持有 CAKE，权重按快照计算</h3><p>Snapshot 空间使用 BNB Chain 上的 CAKE 余额作为投票权重，资产留在自己的钱包，不需要转出。</p></div></div>
+        <div className="flow-step"><span>02</span><div><h3>在投票窗口内签名</h3><p>连接钱包，在 Snapshot 选择选项并签名。投票本身是链下签名，不产生链上交易。</p></div></div>
+        <div className="flow-step"><span>03</span><div><h3>结果与执行分开看</h3><p>投票结束后由官方按结果推进；Snapshot 显示“已结束”不等于链上已经执行，执行进度以官方公告为准。</p></div></div>
+        <p className="fine-print">本页只展示 Snapshot 上的 CAKE 治理提案；veCAKE 的 Gauge 投票在 PancakeSwap 站内进行，不在此列表。本站只读展示治理数据，不连接钱包、不代投、不保存私钥。提案标题与选项保留英文原文，避免翻译造成歧义。</p>
+        <LinkOut href="https://snapshot.box/#/s:cakevote.eth" className="inline-link">打开 PancakeSwap Snapshot 空间</LinkOut>
+      </Panel>
+      <Panel title="Snapshot 空间参数" en="SPACE SETTINGS" action={<Vote size={17} className="teal" />}>
+        <div className="audit-rows gov-params">
+          <div><span>投票策略</span><strong>{strategy}</strong></div>
+          <div><span>投票期</span><strong>{duration(data?.voting.period)}</strong></div>
+          <div><span>投票延迟</span><strong>{duration(data?.voting.delay)}</strong></div>
+          <div><span>最低投票门槛</span><strong>{data?.voting.quorum === null || data?.voting.quorum === undefined ? "—" : `${num(data.voting.quorum)} CAKE`}</strong></div>
+          <div><span>累计提案</span><strong>{data ? data.space.proposals.toLocaleString("en-US") : "—"}</strong></div>
+          <div><span>关注地址</span><strong>{data ? data.space.followers.toLocaleString("en-US") : "—"}</strong></div>
+        </div>
+        <p className="fine-print">当前空间把最低投票门槛设为 1 CAKE；实际通过条件、执行时间与链上操作以官方提案页和公告为准。数据缓存 15 分钟。</p>
+      </Panel>
+    </div>
+  </>;
 }
 function validateRules(value: unknown): AlertRule[] {
   return Array.isArray(value) ? value.filter((v) => v && typeof v.id === "string" && ["price-above", "price-below", "burn-above"].includes(v.metric) && Number.isFinite(v.threshold) && v.threshold > 0 && typeof v.enabled === "boolean").slice(0, 20) : [];
@@ -206,7 +286,7 @@ export default function Monitor() {
   return <>
     <header className="site-header"><div className="header-inner"><button className="brand" onClick={() => switchView("overview")} aria-label="CAKE Monitor 首页"><img src="/cake-icon.png" alt="" /><span>CAKE<span className="brand-light">Monitor</span><small>PancakeSwap 数据终端</small></span></button><nav aria-label="主导航">{NAV.map((n) => <button key={n.id} className={view === n.id ? "active" : ""} onClick={() => switchView(n.id)} aria-current={view === n.id ? "page" : undefined}>{n.label}</button>)}</nav><div className="header-actions"><LinkOut href="https://pancakeswap.finance/burn-dashboard" className="official-link">官方仪表板</LinkOut><button className="alert-trigger" ref={triggerButton} onClick={() => setAlertsOpen(true)}><Bell size={16} /><span>监控提醒</span>{rules.some((r) => r.enabled) && <i />}</button></div></div></header>
     <main className="main-container">
-      <div className="connection-bar"><span><i className={`status-dot ${liveCount === 5 ? "live" : allDone ? "cached" : "waiting"}`} />{!allDone ? "正在连接公开数据源" : `${liveCount}/5 数据源完整${liveCount < 5 ? " · 部分数据待恢复" : ""}`}<span className="connection-detail"> · {auto ? "每 60 秒检查" : "自动检查已暂停"}</span></span><div><button className="icon-button" onClick={() => setAuto((v) => !v)} title={auto ? "暂停自动检查" : "恢复自动检查"} aria-label={auto ? "暂停自动检查" : "恢复自动检查"}>{auto ? <Pause size={13} /> : <Play size={13} />}</button><button className="refresh-button" onClick={() => void refresh()} disabled={loading}><RefreshCw size={13} className={loading ? "spin" : ""} />{loading ? "更新中" : "刷新"}</button></div></div>
+      <div className="connection-bar"><span><i className={`status-dot ${liveCount === KEYS.length ? "live" : allDone ? "cached" : "waiting"}`} />{!allDone ? "正在连接公开数据源" : `${liveCount}/${KEYS.length} 数据源完整${liveCount < KEYS.length ? " · 部分数据待恢复" : ""}`}<span className="connection-detail"> · {auto ? "每 60 秒检查" : "自动检查已暂停"}</span></span><div><button className="icon-button" onClick={() => setAuto((v) => !v)} title={auto ? "暂停自动检查" : "恢复自动检查"} aria-label={auto ? "暂停自动检查" : "恢复自动检查"}>{auto ? <Pause size={13} /> : <Play size={13} />}</button><button className="refresh-button" onClick={() => void refresh()} disabled={loading}><RefreshCw size={13} className={loading ? "spin" : ""} />{loading ? "更新中" : "刷新"}</button></div></div>
       {view === "overview" ? <>
         <section className="hero">
           <div className="hero-copy"><span className="eyebrow"><i />PANCAKESWAP DATA TERMINAL</span><h1>追踪每一次销毁，<br />看清 <em>CAKE</em> 的变化。</h1><p>交易、费用、销毁与供应量。<br className="desktop-break" />你关心的 PancakeSwap 数据，尽在一处。</p><div className="hero-links"><button onClick={() => switchView("burn")}>探索 CAKE 销毁<ArrowRight size={16} /></button><a href="#methodology">数据口径<CircleHelp size={15} /></a></div></div>
@@ -215,7 +295,7 @@ export default function Monitor() {
         </section>
         <section className="insight-banner"><span className="insight-icon">{last && last.netMint <= 0 ? <TrendingDown size={23} /> : <Activity size={23} />}</span><div><span>供应观察{last ? ` · ${dateUTC(last.date)} UTC` : " · 等待官方数据"}</span><h2>{last ? <>最新一期 CAKE 供应净{last.netMint <= 0 ? "减少" : "增加"} <strong>{num(Math.abs(last.netMint))}</strong></> : "把每一次销毁，放回供应变化中观察"}</h2><p>产品销毁、链上毛销毁与净供应变化，各自独立展示。</p></div><button onClick={() => switchView("burn")}>查看销毁明细<ArrowRight size={16} /></button></section>
         <div className="dashboard-section-heading"><div><span className="section-indicator" /><h2>关键数据</h2><span>PancakeSwap at a glance</span></div><span>公开来源 · 按各源周期更新</span></div>
-      </> : <section className="page-title"><span className="eyebrow">PANCAKESWAP DATA TERMINAL</span><h1>{view === "burn" ? "CAKE 销毁与通缩" : view === "protocol" ? "PancakeSwap 协议活动" : "CAKE 供应与市场行情"}</h1><p>{view === "burn" ? "从产品销毁到净供应变化，每一个数字都能回溯来源。" : view === "protocol" ? "追踪交易额、TVL、交易手续费与协议收入，观察协议的使用情况。" : "对照供应量、市场行情与链上余额，理解 CAKE 的每一种数据口径。"}</p></section>}
+      </> : <section className="page-title"><span className="eyebrow">PANCAKESWAP DATA TERMINAL</span><h1>{view === "burn" ? "CAKE 销毁与通缩" : view === "protocol" ? "PancakeSwap 协议活动" : view === "governance" ? "CAKE 治理提案与投票" : "CAKE 供应与市场行情"}</h1><p>{view === "burn" ? "从产品销毁到净供应变化，每一个数字都能回溯来源。" : view === "protocol" ? "追踪交易额、TVL、交易手续费与协议收入，观察协议的使用情况。" : view === "governance" ? "从 Snapshot 空间读取 PancakeSwap 治理提案、投票权重与最终结果。" : "对照供应量、市场行情与链上余额，理解 CAKE 的每一种数据口径。"}</p></section>}
       {(view === "overview" || view === "burn") && <div className="metrics-grid">
         <Metric title={view === "burn" ? "本期链上毛销毁" : "24H 协议交易额"} en={view === "burn" ? "GROSS ONCHAIN BURN" : "PROTOCOL VOLUME"} value={view === "burn" ? num(burns?.weeklyBurn) : usd(protocol?.volume24h)} note={view === "burn" ? "含为排放核算而铸造后销毁的 CAKE" : "DefiLlama · PancakeSwap 全协议"}>{view === "overview" ? <><Change value={protocol?.volumeChange} /><span>较上一统计日</span></> : undefined}</Metric>
         <Metric title={view === "burn" ? "本期链上铸造" : "24H 交易手续费"} en={view === "burn" ? "GROSS TOKEN MINT" : "SWAP FEES"} value={view === "burn" ? num(burns?.weeklyMint) : usd(protocol?.fees24h)} note={view === "burn" ? "官方仪表板本期累计铸造口径" : "用户支付的交易手续费"} />
@@ -232,8 +312,9 @@ export default function Monitor() {
         <div className="content-grid supply-grid"><Panel title="CAKE / USDT 市场走势" en="COMPLETED DAILY CLOSES" action={<Range value={priceRange} onChange={setPriceRange} />}><div className="price-heading"><div><span className="quote-label">{isFresh(market?.binanceAsOf) ? "币安最新成交价" : "币安最近成功报价"} · 每 60 秒检查</span><strong>{market?.priceUSDT != null ? market.priceUSDT.toFixed(4) : "—"}<small> USDT</small></strong><span className="quote-asof">报价时间 {dateTime(market?.binanceAsOf)}（北京时间）{market?.binanceAsOf && !isFresh(market.binanceAsOf) ? " · 已过期" : ""}</span></div><Change value={market?.changeUSDT} /></div><TrendChart points={inRange(data.prices?.data?.points ?? [], priceRange)} label="CAKE / USDT" unit="USDT" zero={false} color="#21b8c6" /><div className="panel-foot"><Stamp source={data.prices} /><span>仅包含已完成 UTC 日线</span></div></Panel><Panel title="链上余额核对" en="SAME-BLOCK VERIFICATION" action={<ShieldCheck size={17} className="teal" />}><p className="body-note">在同一个已确认区块读取 CAKE 合约的累计铸造量和 0x…dEaD 余额。</p><div className="audit-rows"><div><span>合约累计铸造量</span><strong>{num(data.chain?.data?.minted)} CAKE</strong></div><div><span>销毁地址累计余额</span><strong>{num(data.chain?.data?.deadBalance)} CAKE</strong></div><div className="audit-result"><span>两者差额</span><strong>{num(data.chain?.data?.outstanding)} CAKE</strong></div><div><span>区块高度</span><strong>{data.chain?.data ? <LinkOut href={`https://bscscan.com/block/${data.chain.data.block}`}>#{data.chain.data.block.toLocaleString("en-US")}</LinkOut> : "—"}</strong></div></div><Stamp source={data.chain} /><p className="fine-print">该差额包含待后续销毁的铸造量，不直接作为流通量，也不与官方总供应量混用。</p><LinkOut href={`https://bscscan.com/token/${CAKE}`} className="inline-link">在 BscScan 核对合约</LinkOut></Panel></div>
         <div className="metrics-grid small-metrics"><Metric title="24H 最高价" en="BINANCE CAKE/USDT" value={market?.highUSDT?.toFixed(4) ?? "—"} note="USDT" /><Metric title="24H 最低价" en="BINANCE CAKE/USDT" value={market?.lowUSDT?.toFixed(4) ?? "—"} note="USDT" /><Metric title="24H 币安成交额" en="BINANCE QUOTE VOLUME" value={num(market?.volumeUSDT)} note="USDT · 单一交易市场" /><Metric title="24H 代币全市场成交额" en="TOKEN MARKET VOLUME" value={usd(market?.tokenVolume)} note="CoinGecko · 不等于协议交易额" /></div>
       </>}
+      {view === "governance" && <GovernanceView source={data.governance} />}
       {view === "burn" && <Panel title="最近链上销毁记录" en="VERIFIABLE BURN TRANSACTIONS" action={<button className="text-button" onClick={exportCSV} disabled={!transactions.length}><ArrowDownToLine size={14} />导出 CSV</button>}><div className="table-toolbar"><p>这里列示链上毛销毁，包含排放核算相关的销毁，金额通常大于产品销毁。</p><input aria-label="搜索交易哈希" placeholder="搜索交易哈希…" value={query} onChange={(e) => { setQuery(e.target.value); setVisibleTx(8); }} /></div><div className="table-scroll"><table><thead><tr><th>统计日期（UTC）</th><th>链上毛销毁 / CAKE</th><th>交易哈希</th><th>发送方</th></tr></thead><tbody>{transactions.slice(0, visibleTx).map((tx) => <tr key={tx.tx}><td>{dateUTC(tx.date)}</td><td className="tabular">{precise(tx.amount)}</td><td><LinkOut href={`https://bscscan.com/tx/${tx.tx}`}>{tx.tx.slice(0, 8)}…{tx.tx.slice(-6)}</LinkOut></td><td><LinkOut href={`https://bscscan.com/address/${tx.from}`}>{tx.from.slice(0, 6)}…{tx.from.slice(-4)}</LinkOut></td></tr>)}</tbody></table>{!transactions.length && <div className="table-empty">{query ? "未找到符合条件的交易" : "暂无可用的交易记录"}</div>}</div><div className="table-bottom"><span>已显示 {Math.min(visibleTx, transactions.length)} / {transactions.length} 笔</span>{visibleTx < transactions.length && <button onClick={() => setVisibleTx((v) => v + 20)}>查看更多<ChevronDown size={14} /></button>}</div></Panel>}
-      <section className="sources-section" id="methodology"><div className="section-heading"><div><span className="eyebrow">TRACEABLE BY DESIGN</span><h2>数据有出处，变化有依据。</h2></div><span className="source-updated">最近检查：{dateTime(refreshTime)}（北京时间）</span></div><div className="source-grid">{KEYS.map((key) => <div key={key} className="source-card"><div className="source-card-top"><span>{({ market: "行情与流通量", protocol: "协议活动", burns: "销毁与供应历史", chain: "链上余额核对", prices: "CAKE / USDT 日线" })[key]}</span><i className={`status-dot ${data[key]?.status ?? "waiting"}`} /></div><strong>{data[key]?.source ?? ({ market: "CoinGecko · Binance", protocol: "DefiLlama", burns: "PancakeSwap", chain: "BNB Chain", prices: "Binance" })[key]}</strong><small>数据截至 {dateTime(data[key]?.asOf)}</small><small>采集于 {dateTime(data[key]?.fetchedAt)}</small>{data[key]?.note && <p className="source-warning">{data[key]?.note}</p>}{data[key]?.sourceUrl && <LinkOut href={data[key]!.sourceUrl} className="source-link">查看来源</LinkOut>}</div>)}</div><details className="methodology"><summary><Info size={15} />统计口径与监控说明<ChevronDown size={15} /></summary><div className="methodology-content"><p><strong>销毁的三个口径。</strong>产品销毁来自官方 burnTimeSeries，按产品逐项汇总；链上毛销毁使用 weekly_burn 和交易记录；净供应变化使用官方 deflationTimeSeries，负数表示铸造少于销毁。三者不相加。大额铸造、待销毁余额与核算时点可能造成单期净变化跳动。</p><p><strong>供应与市场。</strong>官方总供应量使用 total_supply；流通量和市值使用 CoinGecko。链上核对是同一区块的 totalSupply() 减销毁地址余额，含未完成核算的部分。市场报价同时区分 USD 与 USDT。</p><p><strong>时间与缺失值。</strong>统计日期、日线和销毁周期采用 UTC；采集时间展示为北京时间。页面每 60 秒检查，服务端按源缓存 1–30 分钟，数据源各自按其周期发布。图表不把缺失记录补成 0；源异常保留有日期的快照并显示提示。日线不包含未收盘日。</p><p><strong>提醒范围。</strong>规则仅保存在当前浏览器。本页面打开、可见且自动检查开启时判断；浏览器后台可能限制刷新，关闭页面后不会继续推送。价格规则只使用新鲜的 Binance USDT 报价，单条规则至少间隔 15 分钟并需重新越过阈值；同一期产品销毁仅提醒一次。</p><p><strong>设计参考。</strong>信息结构参考 <a href="https://www.defiburn.com/zh" target="_blank" rel="noopener noreferrer">DeFiBurn</a>，本项目独立实现 CAKE 数据接入。本站与 PancakeSwap 官方无隶属关系。</p></div></details></section>
+      <section className="sources-section" id="methodology"><div className="section-heading"><div><span className="eyebrow">TRACEABLE BY DESIGN</span><h2>数据有出处，变化有依据。</h2></div><span className="source-updated">最近检查：{dateTime(refreshTime)}（北京时间）</span></div><div className="source-grid">{KEYS.map((key) => <div key={key} className="source-card"><div className="source-card-top"><span>{({ market: "行情与流通量", protocol: "协议活动", burns: "销毁与供应历史", chain: "链上余额核对", prices: "CAKE / USDT 日线", governance: "治理提案与投票" })[key]}</span><i className={`status-dot ${data[key]?.status ?? "waiting"}`} /></div><strong>{data[key]?.source ?? ({ market: "CoinGecko · Binance", protocol: "DefiLlama", burns: "PancakeSwap", chain: "BNB Chain", prices: "Binance", governance: "Snapshot" })[key]}</strong><small>数据截至 {dateTime(data[key]?.asOf)}</small><small>采集于 {dateTime(data[key]?.fetchedAt)}</small>{data[key]?.note && <p className="source-warning">{data[key]?.note}</p>}{data[key]?.sourceUrl && <LinkOut href={data[key]!.sourceUrl} className="source-link">查看来源</LinkOut>}</div>)}</div><details className="methodology"><summary><Info size={15} />统计口径与监控说明<ChevronDown size={15} /></summary><div className="methodology-content"><p><strong>销毁的三个口径。</strong>产品销毁来自官方 burnTimeSeries，按产品逐项汇总；链上毛销毁使用 weekly_burn 和交易记录；净供应变化使用官方 deflationTimeSeries，负数表示铸造少于销毁。三者不相加。大额铸造、待销毁余额与核算时点可能造成单期净变化跳动。</p><p><strong>供应与市场。</strong>官方总供应量使用 total_supply；流通量和市值使用 CoinGecko。链上核对是同一区块的 totalSupply() 减销毁地址余额，含未完成核算的部分。市场报价同时区分 USD 与 USDT。</p><p><strong>时间与缺失值。</strong>统计日期、日线和销毁周期采用 UTC；采集时间展示为北京时间。页面每 60 秒检查，服务端按源缓存 1–30 分钟，数据源各自按其周期发布。图表不把缺失记录补成 0；源异常保留有日期的快照并显示提示。日线不包含未收盘日。</p><p><strong>提醒范围。</strong>规则仅保存在当前浏览器。本页面打开、可见且自动检查开启时判断；浏览器后台可能限制刷新，关闭页面后不会继续推送。价格规则只使用新鲜的 Binance USDT 报价，单条规则至少间隔 15 分钟并需重新越过阈值；同一期产品销毁仅提醒一次。</p><p><strong>治理提案。</strong>提案、选项、状态与投票权重读取自 PancakeSwap 的 Snapshot 空间 cakevote.eth，权重单位为 CAKE；页面只加载最近 60 个提案，更早记录请到 Snapshot 查看。标题与选项保留原文。投票结束不等于链上已执行，执行进度以官方公告为准；本站不连接钱包、不代投。</p><p><strong>设计参考。</strong>信息结构参考 <a href="https://www.defiburn.com/zh" target="_blank" rel="noopener noreferrer">DeFiBurn</a>，本项目独立实现 CAKE 数据接入。本站与 PancakeSwap 官方无隶属关系。</p></div></details></section>
       <footer><div className="footer-brand"><img src="/cake-icon.png" alt="" /><strong>CAKE Monitor</strong><span>独立的 PancakeSwap 数据看板</span></div><div><LinkOut href="https://www.defiburn.com/zh">灵感来自 DeFiBurn</LinkOut><span>公开数据 · 仅作信息展示</span></div></footer>
     </main>
     {toast && <div className="toast" role="status"><Check size={17} /><span>{toast}</span><button aria-label="关闭提示" onClick={() => setToast("")}><X size={14} /></button></div>}

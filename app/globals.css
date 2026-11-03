@@ -237,11 +237,50 @@ td a { color: #6d9fbe; font-size: 11px; }
 .table-bottom button { display: flex; align-items: center; gap: 6px; color: #6f98b8; }
 .table-empty { padding: 40px; text-align: center; color: #a3b2c9; }
 
+.gov-toolbar { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 4px; }
+.gov-toolbar .text-tabs button span { font-size: 9px; color: #a6b3c6; margin-left: 3px; }
+.gov-toolbar .text-tabs button.active span { color: #79b9c0; }
+.gov-list { border-top: 1px solid #eef2f8; }
+.gov-item { padding: 18px 2px 17px; border-bottom: 1px solid #eef2f8; }
+.gov-item:last-child { border-bottom: 0; }
+.gov-item-top { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; font-size: 9px; color: #98a6ba; }
+.gov-badge { padding: 3px 7px; border-radius: 4px; font-size: 9px; font-weight: 600; letter-spacing: .2px; }
+.gov-badge.active { color: #168d75; background: #e9f9f3; border: 1px solid #d4f0e6; }
+.gov-badge.closed { color: #8795a9; background: #f5f8fc; border: 1px solid #e9eef6; }
+.gov-badge.pending { color: #b0873e; background: #fdf7ea; border: 1px solid #f4e9d1; }
+.gov-window { color: #93a2b6; }
+.gov-participation { margin-left: auto; color: #8d9db2; white-space: nowrap; }
+.gov-title { margin: 9px 0 12px; font-size: 14px; font-weight: 650; line-height: 1.6; letter-spacing: -.1px; }
+.gov-title a { display: inline; color: #3e5777; }
+.gov-title a:hover { color: #17a3b0; }
+.gov-stacked { display: flex; gap: 2px; height: 7px; border-radius: 4px; overflow: hidden; background: #eff3f9; }
+.gov-stacked > span { display: block; min-width: 1px; border-radius: 3px; }
+.gov-stacked .for, .gov-legend i.for { background: #35b79b; }
+.gov-stacked .against, .gov-legend i.against { background: #e2858d; }
+.gov-stacked .abstain, .gov-legend i.abstain { background: #b9c5d6; }
+.gov-stacked .other, .gov-legend i.other { background: #8d9fe0; }
+.gov-legend { display: flex; flex-wrap: wrap; gap: 7px 18px; margin-top: 9px; font-size: 10px; color: #8393a9; }
+.gov-legend > span { display: inline-flex; align-items: center; gap: 5px; }
+.gov-legend i { width: 6px; height: 6px; border-radius: 2px; flex-shrink: 0; }
+.gov-legend strong { color: #56708f; font-weight: 650; font-size: 11px; }
+.gov-legend small { color: #a4b2c5; font-size: 9px; }
+.gov-item-foot { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 13px; margin-top: 8px; font-size: 9px; color: #a3b0c2; }
+.gov-item-foot a { margin-left: auto; display: inline-flex; align-items: center; gap: 4px; color: #6a9dbd; font-size: 9px; }
+.gov-item-foot a:hover { color: #1aa4b0; }
+.gov-pager { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding-top: 15px; font-size: 10px; color: #9aabc0; }
+.gov-pager > div { display: flex; gap: 6px; }
+.gov-pager button { padding: 5px 10px; border: 1px solid #e3eaf3; border-radius: 5px; font-size: 10px; color: #6d89aa; background: #fff; }
+.gov-pager button:hover:not(:disabled) { border-color: #a8d7de; background: #f4fbfc; }
+.gov-info-grid { margin-top: 0; }
+.gov-params.audit-rows { margin: 4px 0 2px; }
+.gov-params > div { padding: 12px 0; }
+.gov-params strong { font-size: 11px; text-align: right; }
+
 .sources-section { padding-top: 29px; margin-top: 27px; border-top: 1px solid #e5ecf6; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 20px; }
 .section-heading h2 { font-size: 20px; font-weight: 700; margin-top: 9px; letter-spacing: -.4px; }
 .source-updated { font-size: 10px; color: #a3b1c5; }
-.source-grid { display: grid; grid-template-columns: repeat(5,minmax(0,1fr)); gap: 12px; }
+.source-grid { display: grid; grid-template-columns: repeat(6,minmax(0,1fr)); gap: 12px; }
 .source-card { display: flex; flex-direction: column; min-width: 0; background: #fff; border: 1px solid #e4ebf5; border-radius: 9px; padding: 16px; box-shadow: var(--shadow); }
 .source-card-top { display: flex; align-items: center; justify-content: space-between; gap: 7px; color: #93a4bc; font-size: 10px; }
 .source-card > strong { font-size: 12px; font-weight: 650; line-height: 1.7; margin: 10px 0 7px; }
@@ -358,7 +397,7 @@ footer a { color: #7aa3bd; }
   .content-grid { grid-template-columns: minmax(0,1.8fr) minmax(0,1fr); gap: 18px; }
   .panel-heading { flex-wrap: wrap; row-gap: 12px; }
   .panel-heading .range-control { margin-left: auto; }
-  .source-grid { gap: 10px; }
+  .source-grid { grid-template-columns: repeat(3,minmax(0,1fr)); gap: 10px; }
   .source-card { padding: 13px; }
   .source-card > strong { font-size: 11px; }
   .source-card > small { font-size: 9px; }
@@ -404,7 +443,7 @@ footer a { color: #7aa3bd; }
   .brand img { height: 38px; width: 38px; }
   .brand small { font-size: 9px; letter-spacing: .4px; }
   .header-inner nav { position: absolute; height: 46px; top: 70px; left: 20px; right: 20px; gap: 4px; justify-content: space-between; border-top: 1px solid #f0f4f9; }
-  .header-inner nav button { flex: 1; padding: 7px 8px; font-size: 12px; }
+  .header-inner nav button { flex: 1; padding: 7px 5px; font-size: 11px; }
   .alert-trigger { padding: 8px 10px; font-size: 11px; }
   .main-container { padding: 0 20px; }
   .hero { gap: 25px; }
@@ -548,6 +587,17 @@ footer a { color: #7aa3bd; }
   .table-toolbar { display: block; font-size: 11px; line-height: 1.9; }
   .table-toolbar input { width: 100%; margin-top: 12px; }
   .table-bottom { font-size: 10px; }
+  .header-inner nav button { padding: 7px 4px; font-size: 11px; }
+  .gov-toolbar { align-items: flex-start; flex-direction: column; gap: 8px; }
+  .gov-toolbar .chart-unit { display: none; }
+  .gov-title { font-size: 13px; margin: 8px 0 10px; }
+  .gov-participation { margin-left: 0; }
+  .gov-legend { gap: 6px 12px; }
+  .gov-legend strong { font-size: 10px; }
+  .gov-item-foot { gap: 7px 11px; }
+  .gov-item-foot a { margin-left: 0; }
+  .gov-pager { flex-wrap: wrap; font-size: 9px; }
+  .gov-params.audit-rows strong { font-size: 10px; }
   .sources-section { margin-top: 23px; padding-top: 24px; }
   .section-heading h2 { font-size: 18px; }
   .section-heading .eyebrow { font-size: 8px; }
