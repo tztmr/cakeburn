@@ -39,6 +39,20 @@ test('the real official history reconciles net mint with gross mint minus gross 
   for (const period of normalized.periods) assert.ok(Math.abs(period.netMint - (period.grossMint - period.grossBurn)) < 0.01);
   assert.ok(Math.abs(normalized.totalMint - normalized.totalBurn - normalized.totalSupply) < 0.01);
 });
+test('weekly net mint matches the reported net of non-recycle emissions minus product burns', () => {
+  const normalized = normalizeBurnStats(snapshot.data);
+  const last = normalized.periods.at(-1);
+  const emissions = snapshot.data.mintTimeSeries
+    .filter((row) => row.timestamp === last.date && !/cake burn/i.test(row.product))
+    .reduce((sum, row) => sum + row.mint, 0);
+  assert.ok(normalized.weeklyNetMint !== null);
+  assert.ok(Math.abs(normalized.weeklyNetMint - (emissions - last.productBurn)) < 0.01);
+  assert.ok(normalized.weeklyNetMint > -400_000 && normalized.weeklyNetMint < 0);
+  const withoutMints = structuredClone(snapshot.data);
+  delete withoutMints.mintTimeSeries;
+  assert.equal(normalizeBurnStats(withoutMints).weeklyNetMint, null);
+});
+
 test('burn transactions deduplicate hashes and reject non-burn destinations', () => {
   const fixture = structuredClone(snapshot.data);
   const real = fixture.burnHistoryTable[0];

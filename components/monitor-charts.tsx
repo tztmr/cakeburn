@@ -25,18 +25,18 @@ export function BurnChart({ periods, mode }: { periods: BurnPeriod[]; mode: "pro
   const names = [...new Set(periods.flatMap((p) => p.products.map((v) => v.name)))];
   const data = periods.map((p) => Object.assign({ date: p.date, net: p.netMint }, ...names.map((name, i) => ({ [`p${i}`]: p.products.find((v) => v.name === name)?.amount }))));
   return <>
-    <div className="chart-box" role="img" aria-label={mode === "products" ? "各产品每周 CAKE 销毁量，悬停查看金额" : "每周净供应变化，负数表示通缩"}>
+    <div className="chart-box" role="img" aria-label={mode === "products" ? "各产品每周 CAKE 销毁量，悬停查看金额" : "每周总供应变化，负数表示通缩"}>
       <ResponsiveContainer width="100%" height="100%" minWidth={0} initialDimension={{ width: 480, height: 237 }}><BarChart data={data} margin={{ top: 12, right: 6, left: -12, bottom: 0 }} barCategoryGap="30%">
         <CartesianGrid vertical={false} stroke="#edf2f9" strokeDasharray="3 4" />
         <XAxis dataKey="date" tickFormatter={day} {...axes} minTickGap={28} />
         <YAxis tickFormatter={(n) => compact(n, 1)} {...axes} width={68} />
         <Tooltip contentStyle={tooltipStyle} cursor={{ fill: "#f1f7fb" }} labelFormatter={fullDay} formatter={(value, name) => [value === undefined ? "缺失" : `${Number(value).toLocaleString("en-US", { maximumFractionDigits: 2 })} CAKE`, name]} />
-        {mode === "products" ? names.map((name, i) => <Bar key={name} dataKey={`p${i}`} name={name} stackId="burn" fill={productColor(name)} hide={hidden.includes(name)} maxBarSize={38} />) : <Bar dataKey="net" name="净增发（负数为通缩）" maxBarSize={38}>{periods.map((p) => <Cell key={p.date} fill={p.netMint < 0 ? "#41b397" : "#f0b860"} />)}</Bar>}
+        {mode === "products" ? names.map((name, i) => <Bar key={name} dataKey={`p${i}`} name={name} stackId="burn" fill={productColor(name)} hide={hidden.includes(name)} maxBarSize={38} />) : <Bar dataKey="net" name="总供应变化（负数为通缩）" maxBarSize={38}>{periods.map((p) => <Cell key={p.date} fill={p.netMint < 0 ? "#41b397" : "#f0b860"} />)}</Bar>}
         {mode === "net" && <ReferenceLine y={0} stroke="#d8e2f0" />}
       </BarChart></ResponsiveContainer>
     </div>
     {mode === "products" && <div className="chart-legend">{names.map((name) => <button key={name} className={hidden.includes(name) ? "muted" : ""} onClick={() => setHidden((old) => old.includes(name) ? old.filter((n) => n !== name) : [...old, name])}><i style={{ background: productColor(name) }} />{name}</button>)}</div>}
-    {mode === "net" && <div className="chart-legend"><span><i style={{ background: "#41b397" }} />净通缩</span><span><i style={{ background: "#f0b860" }} />净增发</span></div>}
+    {mode === "net" && <div className="chart-legend"><span><i style={{ background: "#41b397" }} />总供应减少</span><span><i style={{ background: "#f0b860" }} />总供应增加</span></div>}
   </>;
 }
 export function TrendChart({ points, color = "#27b7c4", unit = "USD", label, zero = true }: { points: Point[]; color?: string; unit?: string; label: string; zero?: boolean }) {

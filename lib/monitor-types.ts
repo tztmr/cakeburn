@@ -59,6 +59,7 @@ export type Burns = {
   totalSupply: number;
   weeklyBurn: number;
   weeklyMint: number;
+  weeklyNetMint: number | null;
   supplyHistory: Point[];
   periods: BurnPeriod[];
   transactions: BurnTransaction[];

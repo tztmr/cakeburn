@@ -57,6 +57,16 @@ export function normalizeBurnStats(raw: unknown): Burns {
   const supplyHistory = rows(data.totalSupplyTimeSeries).map((row) => ({ date: required(row.timestamp), value: required(row.total_supply) })).sort((a, b) => a.date - b.date);
   if (!periods.length || !supplyHistory.length) throw new Error("官方历史数据为空");
   const seen = new Set<string>();
+  let weeklyNetMint: number | null = null;
+  const mintRows = Array.isArray(data.mintTimeSeries) ? data.mintTimeSeries.map(object) : [];
+  const latest = periods.at(-1)!;
+  if (latest.productBurn !== null && mintRows.length) {
+    try {
+      const emissions = mintRows.filter((row) => required(row.timestamp) === latest.date && !/cake burn/i.test(typeof row.product === "string" ? row.product : ""))
+        .reduce((sum, row) => sum + required(row.mint), 0);
+      if (emissions > 0) weeklyNetMint = emissions - latest.productBurn;
+    } catch { weeklyNetMint = null; }
+  }
   const transactions = rows(data.burnHistoryTable).flatMap((row) => {
     if (typeof row.txHash !== "string" || !/^0x[\da-f]{64}$/i.test(row.txHash) || seen.has(row.txHash)) return [];
     if (typeof row.from !== "string" || !/^0x[\da-f]{40}$/i.test(row.from) || typeof row.to !== "string" || row.to.toLowerCase() !== "0x000000000000000000000000000000000000dead") return [];
@@ -64,7 +74,7 @@ export function normalizeBurnStats(raw: unknown): Burns {
     return [{ tx: row.txHash, date: required(row.timestamp), amount: required(row.amount), from: row.from, to: row.to }];
   }).sort((a, b) => b.date - a.date);
   return { totalBurn: required(data.total_burn), totalMint: required(data.total_mint), totalSupply: required(data.total_supply),
-    weeklyBurn: required(data.weekly_burn), weeklyMint: required(data.weekly_mint), periods, supplyHistory, transactions };
+    weeklyBurn: required(data.weekly_burn), weeklyMint: required(data.weekly_mint), weeklyNetMint, periods, supplyHistory, transactions };
 }
 export function supplementMarket(raw: unknown, current: Market): Market {
   if (!Array.isArray(raw) || raw.length !== 1) throw new Error("行情数据格式无效");
