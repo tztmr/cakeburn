@@ -276,6 +276,11 @@ td a { color: #6d9fbe; font-size: 11px; }
 .gov-params > div { padding: 12px 0; }
 .gov-params strong { font-size: 11px; text-align: right; }
 
+.burn-reconcile { display: flex; align-items: flex-start; gap: 9px; margin: -3px 0 20px; padding: 11px 14px; background: #f3f9fc; border: 1px solid #e1eef5; border-radius: 8px; color: #7d94ab; font-size: 11px; line-height: 1.9; }
+.burn-reconcile > svg { margin-top: 3px; color: #69a9bb; }
+.burn-reconcile code { font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 10px; background: #e8f2f7; padding: 1px 4px; border-radius: 3px; color: #5b8ba4; }
+.burn-reconcile strong { color: #527494; font-weight: 650; }
+
 .sources-section { padding-top: 29px; margin-top: 27px; border-top: 1px solid #e5ecf6; }
 .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 18px; margin-bottom: 20px; }
 .section-heading h2 { font-size: 20px; font-weight: 700; margin-top: 9px; letter-spacing: -.4px; }
@@ -534,6 +539,8 @@ footer a { color: #7aa3bd; }
   .metric-value { font-size: 27px; margin: 17px 0 9px; }
   .metric-note { font-size: 9px; min-height: 30px; line-height: 1.8; gap: 5px; }
   .metric-note .change { font-size: 9px; padding: 1px 4px; }
+  .burn-reconcile { font-size: 10px; padding: 10px 12px; margin-bottom: 16px; }
+  .burn-reconcile code { font-size: 9px; }
   .content-grid { gap: 16px; margin-bottom: 16px; }
   .panel { padding: 19px 14px 15px; border-radius: 11px; margin-bottom: 16px; }
   .panel-heading { gap: 10px; margin-bottom: 17px; }
