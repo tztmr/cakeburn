@@ -1,0 +1,4 @@
+{$CAKEBURN_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy cakeburn:3000
+}

@@ -2,6 +2,82 @@
 
 参考 [DeFiBurn](https://www.defiburn.com/zh) 的信息结构，为 PancakeSwap / CAKE 独立实现的中文数据监控站。
 
+## Linux 服务器一键部署
+
+服务器部署入口为 `cakeburn.sh`，参考 CloudMail 的中文部署/运维菜单，配套 Dockerfile、Compose 和可选 Caddy 自动 HTTPS。默认从本仓库 `main` 分支拉取完整源码，不需要 ChatGPT / Cloudflare 账号、数据库或 API 密钥。服务器版为公开的只读监控站。
+
+适用于可访问 GitHub、npm 和 Docker 镜像仓库的 Debian / Ubuntu / Rocky Linux 等常见 Linux 服务器，支持 x86_64、ARM64。建议至少 2 GB 内存，并为首次依赖安装、构建及镜像预留约 5 GB 磁盘；小内存服务器可能需要增加 swap。脚本在缺少依赖时自动安装 Git、Docker Engine 和 Compose 插件。
+
+以 root 身份执行；普通用户也可以使用 sudo：
+
+```sh
+curl -fL --retry 3 https://raw.githubusercontent.com/tztmr/cakeburn/main/cakeburn.sh -o cakeburn.sh
+sudo bash cakeburn.sh deploy
+```
+
+默认目录 `/opt/cakeburn`，默认访问地址 `http://服务器IP:3000`。首次交互部署可设置端口，也可以通过 `--port 8080` 指定。需要在云服务器安全组放行对应 TCP 端口；脚本会尝试放行已启用的 UFW / firewalld。没有 sudo 时，使用 root 运行；未安装 curl 的系统需要先通过系统包管理器安装 curl。
+
+以后直接打开菜单：
+
+```sh
+sudo bash /opt/cakeburn/cakeburn.sh
+```
+
+也可直接执行命令：
+
+```sh
+sudo bash /opt/cakeburn/cakeburn.sh status
+sudo bash /opt/cakeburn/cakeburn.sh logs
+sudo bash /opt/cakeburn/cakeburn.sh restart
+sudo bash /opt/cakeburn/cakeburn.sh stop
+sudo bash /opt/cakeburn/cakeburn.sh start
+sudo bash /opt/cakeburn/cakeburn.sh update
+```
+
+更新使用 `git pull --ff-only`，发现源码有本地修改时停止，不覆盖修改；先构建再替换容器，构建失败时保留原有运行服务。`.env` 不进入 Git、不进入镜像，也不会在更新时被重置。不同的安装/管理命令请使用相同用户（以上示例均为 sudo）。
+
+### 域名与 HTTPS
+
+先把域名的 DNS A 记录指向服务器 IPv4；只有服务器可提供 IPv6 服务时才设置 AAAA 记录。确保宿主机的 80/443 端口未被其他程序占用，并在安全组放行 TCP 80/443，然后执行：
+
+```sh
+sudo bash /opt/cakeburn/cakeburn.sh enable-ssl --domain cake.example.com
+```
+
+将示例替换为自己的域名。脚本会启动 Caddy，自动申请、续期证书，并将应用的 3000 端口绑定到 `127.0.0.1`。申请结果可通过 `logs` 查看；脚本会尝试验证 HTTPS，尚未签发时会明确提示。UDP 443 可选，用于 HTTP/3。已有 Nginx、宝塔或其他反向代理时，可以直接将其指向 `127.0.0.1:3000`，不启用脚本内置 HTTPS：
+
+```sh
+sudo CAKEBURN_BIND=127.0.0.1 bash /opt/cakeburn/cakeburn.sh deploy
+```
+
+已有反向代理时，可在 `.env` 设置 `SITE_URL=https://自己的域名`，再运行 `deploy` 更新页面规范地址；`SITE_URL` 在构建时生效。未配置时服务器版不输出指向预览平台的规范地址。
+
+### 其他部署方式
+
+```sh
+# 预演：不安装依赖、不写配置、不启停容器
+bash cakeburn.sh --dry-run deploy --port 8080
+
+# 自定义安装位置与端口
+sudo bash cakeburn.sh deploy --install-dir /opt/cakeburn --port 8080 --yes
+
+# 卸载保留源码、配置、Caddy 证书数据卷，不执行 down -v
+sudo bash /opt/cakeburn/cakeburn.sh uninstall
+# 无人值守卸载必须明确追加 --yes
+```
+
+也可自行克隆本仓库，在仓库目录执行 `cp .env.example .env`、修改配置，然后执行 `docker compose --project-name cakeburn up -d --build`。手动使用 HTTPS 需设置 `.env` 中的域名、`SITE_URL` 和回环绑定，并追加 `--profile https`。容器提供 `/api/health` 健康检查；开机自动恢复依赖 Docker 服务启动和容器的 `unless-stopped` 策略。停止过的容器需要手动 `start`。
+
+本地验证服务器构建，不需要 Docker：
+
+```sh
+npm ci
+npm run build:server
+HOSTNAME=0.0.0.0 PORT=3000 npm run start:server
+```
+
+服务器构建使用 Next.js standalone，原有 `npm run dev` / `build` / `start` 保留预览平台的 Vinext / Workers 流程。服务器版同样使用公开上游接口；上游接口不可用时仍明确标记过期快照，不会因部署方式变化而将历史数据当作实时数据。
+
 ## 已实现
 
 - 总览：代币行情、流通市值、供应量、协议 TVL、协议交易额与手续费。
@@ -70,7 +146,7 @@ npm run build
 - `tests/governance.test.mjs`：治理存档完整性、空间校验、去重排序与状态合并检查。
 - `tests/data-loading.test.mjs`：接口超时、空响应补取、部分失败保留与报价新鲜度回归检查。
 
-站点默认仅所有者可访问，发布身份保存在 `.openai/hosting.json`。
+原预览平台站点默认仅所有者可访问，发布身份保存在 `.openai/hosting.json`；自行部署的服务器版对可访问其端口的用户公开。
 
 ## 品牌素材
 

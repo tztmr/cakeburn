@@ -1,0 +1,49 @@
+services:
+  cakeburn:
+    build:
+      context: .
+      args:
+        SITE_URL: ${SITE_URL:-}
+    image: cakeburn:local
+    restart: unless-stopped
+    init: true
+    ports:
+      - "${CAKEBURN_BIND:-0.0.0.0}:${CAKEBURN_PORT:-3000}:3000"
+    environment:
+      NODE_ENV: production
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+  caddy:
+    image: caddy:2-alpine
+    profiles: [https]
+    restart: unless-stopped
+    depends_on:
+      cakeburn:
+        condition: service_healthy
+    ports:
+      - "80:80"
+      - "443:443"
+      - "443:443/udp"
+    environment:
+      CAKEBURN_DOMAIN: ${CAKEBURN_DOMAIN:-}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
+
+volumes:
+  caddy_data:
+  caddy_config:
