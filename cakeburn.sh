@@ -19,7 +19,7 @@ DIR_OVERRIDE="${CAKEBURN_INSTALL_DIR:-}"
 PORT_OVERRIDE="${CAKEBURN_PORT:-}"
 BIND_OVERRIDE="${CAKEBURN_BIND:-}"
 DOMAIN_OVERRIDE=''
-PROJECT_ROOT=''; ENV_FILE=''; WEB_PORT=3000; BIND_ADDRESS=0.0.0.0; DOMAIN=''; PUBLIC_URL=''
+PROJECT_ROOT=''; ENV_FILE=''; WEB_PORT=4519; BIND_ADDRESS=0.0.0.0; DOMAIN=''; PUBLIC_URL=''
 ACTION=''; DRY_RUN=0; ASSUME_YES=0
 DOCKER=(docker); COMPOSE=(docker compose); TEMP_FILES=()
 # Compose should read the validated .env, without inherited values masking it.
@@ -52,7 +52,7 @@ usage() {
   menu         中文交互菜单
 
 选项：
-  --port 3000             HTTP 映射端口，仅用于 deploy / update
+  --port 4519             HTTP 映射端口，仅用于 deploy / update
   --install-dir /opt/cakeburn  指定源码目录
   --domain cake.example.com   用于 enable-ssl
   --dry-run               只展示操作，不安装、不写文件、不启停服务
@@ -195,7 +195,7 @@ set_env() {
 }
 
 load_config() {
-  WEB_PORT="$(read_env CAKEBURN_PORT)"; WEB_PORT="${WEB_PORT:-3000}"
+  WEB_PORT="$(read_env CAKEBURN_PORT)"; WEB_PORT="${WEB_PORT:-4519}"
   BIND_ADDRESS="$(read_env CAKEBURN_BIND)"; BIND_ADDRESS="${BIND_ADDRESS:-0.0.0.0}"
   DOMAIN="$(read_env CAKEBURN_DOMAIN)"; PUBLIC_URL="$(read_env SITE_URL)"
   valid_port "$WEB_PORT" || die "配置文件中的 CAKEBURN_PORT 无效：$WEB_PORT"
@@ -211,9 +211,9 @@ prepare_config() {
     run cp -- "$PROJECT_ROOT/.env.example" "$ENV_FILE"
     run chmod 600 "$ENV_FILE"
     if [[ -z "$PORT_OVERRIDE" ]] && interactive && (( ! ASSUME_YES )); then
-      printf '网站端口 [3000]: ' >&2
+      printf '网站端口 [4519]: ' >&2
       IFS= read -r answer || answer=''
-      PORT_OVERRIDE="${answer:-3000}"
+      PORT_OVERRIDE="${answer:-4519}"
     fi
   fi
   load_config
@@ -324,7 +324,7 @@ enable_ssl() {
   fi
   [[ -n "$selected" ]] || selected="$DOMAIN"
   valid_domain "$selected" || die '请用 --domain 指定完整域名，并将 DNS A/AAAA 记录指向本服务器'
-  [[ "$WEB_PORT" != 80 && "$WEB_PORT" != 443 ]] || die 'HTTPS 需要使用 80/443；请先用 deploy --port 3000 更换应用端口'
+  [[ "$WEB_PORT" != 80 && "$WEB_PORT" != 443 ]] || die 'HTTPS 需要使用 80/443；请先用 deploy --port 4519 更换应用端口'
   DOMAIN="$(printf '%s' "$selected" | tr '[:upper:]' '[:lower:]')"
   PUBLIC_URL="https://$DOMAIN"; BIND_ADDRESS=127.0.0.1
   set_env CAKEBURN_DOMAIN "$DOMAIN"; set_env SITE_URL "$PUBLIC_URL"; set_env CAKEBURN_BIND "$BIND_ADDRESS"

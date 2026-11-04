@@ -8,7 +8,7 @@ services:
     restart: unless-stopped
     init: true
     ports:
-      - "${CAKEBURN_BIND:-0.0.0.0}:${CAKEBURN_PORT:-3000}:3000"
+      - "${CAKEBURN_BIND:-0.0.0.0}:${CAKEBURN_PORT:-4519}:3000"
     environment:
       NODE_ENV: production
     security_opt:
